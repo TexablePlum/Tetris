@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 
 namespace Tetris
@@ -13,6 +14,12 @@ namespace Tetris
 		private int columns = 20;
 		private Tile[,] grid;
 
+		private ShapeI iShape;
+
+		public Tile[,] Grid { get => grid; set => grid = value; }
+		public int Rows { get => rows; set => rows = value; }
+		public int Columns { get => columns; set => columns = value; }
+
 		public Main_Grid(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, Point position, int width, int height)
 		   : base(spriteBatch, graphicsDevice, position, width, height)
 		{
@@ -21,6 +28,7 @@ namespace Tetris
 
 			Create_Grid();
 
+			iShape = new ShapeI(grid, 4, Rotation.Ninety);
 		}
 
 		private void Create_Grid()
@@ -47,6 +55,9 @@ namespace Tetris
 			{
 				tile.Tile_Draw();
 			}
+
+			// Rysowanie kształtu
+			iShape.Draw();
 
 		}
 		private int Tile_Size()
