@@ -10,15 +10,11 @@ namespace Tetris
 		private SpriteBatch spriteBatch;
 		private GraphicsDevice graphicsDevice;
 
-		private int rows = 10;
-		private int columns = 20;
+		private readonly int rows = 10;
+		private readonly int columns = 20;
 		private Tile[,] grid;
 
-		private ShapeI iShape;
-
-		public Tile[,] Grid { get => grid; set => grid = value; }
-		public int Rows { get => rows; set => rows = value; }
-		public int Columns { get => columns; set => columns = value; }
+		private bool spaceKeyWasPressed = false;
 
 		public Main_Grid(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, Point position, int width, int height)
 		   : base(spriteBatch, graphicsDevice, position, width, height)
@@ -27,11 +23,9 @@ namespace Tetris
 			this.graphicsDevice = graphicsDevice;
 
 			Create_Grid();
-
-			iShape = new ShapeI(grid, 4, Rotation.Ninety);
 		}
 
-		private void Create_Grid()
+		private void Create_Grid() //Inicjalizacja planszy
 		{
 			grid = new Tile[rows, columns];
 			int tile_size = Tile_Size();
@@ -40,7 +34,7 @@ namespace Tetris
 			{
 				for (int j = 0; j < columns; j++)
 				{
-					grid[i, j] = new Tile(spriteBatch, graphicsDevice, tile_size, Color.Black, new Point(Position.X + i * tile_size, Position.Y + j * tile_size));
+					grid[i, j] = new Tile(spriteBatch, graphicsDevice, tile_size, Color.Black, Color.White, new Point(Position.X + i * tile_size, Position.Y + j * tile_size));
 				}
 			}
 		}
@@ -55,11 +49,9 @@ namespace Tetris
 			{
 				tile.Tile_Draw();
 			}
-
-			// Rysowanie kształtu
-			iShape.Draw();
-
 		}
+
+
 		private int Tile_Size()
 		{
 			if (Height / Width != 2)

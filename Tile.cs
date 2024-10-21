@@ -10,18 +10,19 @@ namespace Tetris
 
 		private int size;
 		private Color fill_color;
-		private Color obw_Color = Color.White;
+		private Color obw_Color;
 		private Point position;
 
 		public Color Fill_Color { get => fill_color; set => fill_color = value; }
 		public Color Obw_Color { get => obw_Color; set => obw_Color = value; }
 		public Point Position { get => position; set => position = value; }
 
-		public Tile(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, int size, Color fill_color, Point position)
+		public Tile(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, int size, Color fill_color, Color obw_Color, Point position)
 		{
 			this.spriteBatch = spriteBatch;
 			this.size = size;
 			this.fill_color = fill_color;
+			this.obw_Color = obw_Color;
 			this.position = position;
 
 			// Stworzenie tekstury 1x1
