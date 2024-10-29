@@ -3,19 +3,19 @@ using System.Collections.Generic;
 
 namespace Tetris
 {
+	public enum RotationStep //enum do określenia kroku obrotu
+	{
+		Step0 = 0,
+		Step90 = 1,
+		Step180 = 2,
+		Step270 = 3
+	}
+
 	public enum MoveDirection //enum do określenia kierunku ruchu
 	{
 		Down,
 		Left,
 		Right
-	}
-
-	public enum ShapeRotation //enum do określenia obrotu kształtu
-	{
-		Zero = 0,
-		Ninety = 90,
-		OneEighty = 180,
-		TwoSeventy = 270
 	}
 
 	public abstract class Tetronimo
@@ -26,26 +26,50 @@ namespace Tetris
 		protected Color fill_color;
 		protected Color obw_Color;
 
-		protected Point current_position;
 		protected Point start_position;
+		protected Point pivot;	//Punkt wokół którego obracamy kształt
+		protected RotationStep step;
 
-		protected Point shape_axis; //Punkt wokół którego obracamy kształt
-		protected ShapeRotation shape_rotation; //Obecny obrót kształtu
+		protected int list_pivot_element; //Indeks elementu listy będący osią obrotu
 
-		public Tetronimo(Tile[,] grid, Point start_position, ShapeRotation shape_rotation = ShapeRotation.Zero)
+		public Tetronimo(Tile[,] grid)
 		{
 			this.grid = grid;
-			this.start_position = start_position;
-			this.shape_rotation = shape_rotation;
-			blocks = new List<Point>(); 
-			current_position = start_position;
+
+			step = RotationStep.Step0; //Domyślny krok obrotu
+
+			blocks = new List<Point>();
+			blocks.Clear(); //Czyszczenie listy punktów (dla bezpieczeństwa)
 
 			Initialize_Shape(); 
 		}
 
 		public abstract void Initialize_Shape();
 
-		public abstract void Rotate();
+		public virtual void Rotate()
+		{
+			Clear(); //Czyszczenie poprzedniego stanu obiektu
+
+			for (var i = 0; i < blocks.Count; i++)
+			{
+				//Obliczenie współrzędnych punktu względem Pivot (środka kształtu)
+				var newX = blocks[i].X - pivot.X;
+				var newY = blocks[i].Y - pivot.Y;
+
+				//Obrót względem Pivot
+				var rotatedX = - newY;
+				var rotatedY = newX;
+
+				//Przesunięcie punktu z powrotem
+				blocks[i] = new Point(pivot.X + rotatedX, pivot.Y + rotatedY);
+			}
+
+			Limes_Grid_Possitioner(); //Ustawienie kształtu względem planszy jeśli ten wychodzi poza nią po obrocie
+
+			step = (RotationStep)(((int)step + 1) % 4); //Zmiana kroku obrotu
+
+			Draw(); //Przerysowanie aby uniknąć migotania
+		}
 
 		public virtual void Move(MoveDirection direction)
 		{
@@ -79,6 +103,8 @@ namespace Tetris
 				throw new System.Exception("Nieprawidłowy kierunek ruchu!");
 			}
 
+			Pivot_Updater(list_pivot_element); //Ustawienie nowego punktu obrotu
+
 			Draw(); //Przerysowanie aby uniknąć migotania
 		}
 
@@ -92,6 +118,14 @@ namespace Tetris
 			}
 		}
 
+
+
+
+		//Metody pomocnicze:
+
+
+
+
 		protected void Clear()
 		{
 			//Implementacja czyszczenia poprzedniego stanu obiektu
@@ -100,6 +134,44 @@ namespace Tetris
 				grid[block.X, block.Y].Fill_Color = Color.Black;
 				grid[block.X, block.Y].Obw_Color = Color.White;
 			}
+		}
+
+		//Jeśli podczas obrotu kształt wychodzi poza planszę
+		protected void Limes_Grid_Possitioner()
+		{
+			//Zmienne przechowujące maksymalne wartości wyjścia poza planszę
+			int maxX = 0;
+			int maxY = 0;
+
+			//Implementacja ustawienia kształtu względem planszy
+			foreach (var block in blocks)
+			{
+				if(block.X < 0 || block.Y < 0) //Jeśli kształt wychodzi poza planszę
+				{
+					if(block.X < maxX)
+					{
+						maxX = block.X;
+					}
+					else if(block.Y < maxY)
+					{
+						maxY = block.Y;
+					}
+				}
+			}
+
+			//Przesunięcie kształtu
+			for (var i = 0; i < blocks.Count; i++)
+			{
+				blocks[i] = new Point(blocks[i].X - maxX, blocks[i].Y - maxY);
+			}
+
+			Pivot_Updater(list_pivot_element); //Ustawienie nowego punktu obrotu
+		}
+
+		private void Pivot_Updater(int element)
+		{
+			//Implementacja ustawienia punktu wokół którego obracamy kształt
+			pivot = blocks[element];
 		}
 
 	}

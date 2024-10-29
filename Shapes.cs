@@ -2,460 +2,213 @@
 
 namespace Tetris
 {
-	//TODO: Implementacja Inicjalizacji i Obracania kształtów Tetrisa !NIE! jest satysfakcjonująca (ze względu na jej rospasanie, sztywność i toporność), ale DZIAŁA
+	//Implementacja Inicjalizacji i Obracania kształtów Tetrisa: DZIAŁA
 
 	public class ShapeI : Tetronimo
 	{
-
-		public ShapeI(Tile[,] grid, Point start_position, ShapeRotation shapeRotation)
-			: base(grid, start_position, shapeRotation)
-		{}
+		
+		public ShapeI(Tile[,] grid)
+			: base(grid)
+		{
+			fill_color = Color.Cyan;
+			obw_Color = Color.White;
+		}
 
 		public override void Initialize_Shape()
 		{
-			blocks.Clear(); //Czyszczenie listy punktów (dla bezpieczeństwa)
+			start_position = new Point(3, 0);
 
-			fill_color = Color.Cyan;
-			obw_Color = Color.White;
+			blocks.Add(new Point(start_position.X, start_position.Y));
+			blocks.Add(new Point(start_position.X + 1, start_position.Y));
+			blocks.Add(new Point(start_position.X + 2, start_position.Y));
+			blocks.Add(new Point(start_position.X + 3, start_position.Y));
 
-			if(shape_rotation == ShapeRotation.Zero || shape_rotation == ShapeRotation.OneEighty)
-			{
-				for (var i = 0; i < 4; i++)
-				{
-					blocks.Add(new Point(current_position.X + i, current_position.Y));
-				}
-			}
-            else
-            {
-				for (var i = 0; i < 4; i++)
-				{
-					blocks.Add(new Point(current_position.X, current_position.Y + i));
-				}
-			}
-        }
+			list_pivot_element = 2;
+			pivot = blocks[list_pivot_element];
+		}
 
 		public override void Rotate()
 		{
-			shape_axis = blocks[1]; //Punkt wokół którego obracamy kształt
-			shape_rotation = (ShapeRotation)(((int)shape_rotation + 90) % 360); //Zmiana obrotu
-
-			Clear(); //Czyszczenie poprzedniego stanu obiektu
-
-			//Tutaj manipulujemy punktami kształtu tylko w 2 płaszczyznach wertykalnie i horyzontalnie
-			if (shape_rotation == ShapeRotation.Zero || shape_rotation == ShapeRotation.OneEighty)
+			if (step == RotationStep.Step0 || step == RotationStep.Step180)
 			{
-				for (var i = -1; i < 3; i++)
-				{
-					blocks[i+1] = new Point(shape_axis.X + i, shape_axis.Y);
-				}
+				base.Rotate();
 			}
-			else
+			else if (step == RotationStep.Step90 || step == RotationStep.Step270)
 			{
-				for (var i = -1; i < 3; i++)
-				{
-					blocks[i + 1] = new Point(shape_axis.X, shape_axis.Y + i);
-				}
-			}
+				Clear(); //Czyszczenie poprzedniego stanu obiektu
 
-			Draw(); //Przerysowanie kształtu
+				for (var i = 0; i < blocks.Count; i++)
+				{
+					//Obliczenie współrzędnych punktu względem Pivot (środka kształtu)
+					var newX = blocks[i].X - pivot.X;
+					var newY = blocks[i].Y - pivot.Y;
+
+					//Obrót względem Pivot
+					var rotatedX = newY;
+					var rotatedY = - newX;
+
+					//Przesunięcie punktu z powrotem
+					blocks[i] = new Point(pivot.X + rotatedX, pivot.Y + rotatedY);
+				}
+
+				Limes_Grid_Possitioner(); //Ustawienie kształtu względem planszy jeśli ten wychodzi poza nią po obrocie
+
+				step = (RotationStep)(((int)step + 1) % 4); //Zmiana kroku obrotu
+
+				Draw(); //Rysowanie nowego stanu obiektu
+			}
 		}
+
 	}
 
 	public class ShapeO : Tetronimo
 	{
-		public ShapeO(Tile[,] grid, Point start_position)
-			: base(grid, start_position)
-		{ }
+		public ShapeO(Tile[,] grid)
+			: base(grid)
+		{
+			fill_color = Color.Yellow;
+			obw_Color = Color.White;
+		}
 
 		public override void Initialize_Shape()
 		{
-			blocks.Clear();
+			start_position = new Point(4, 0);
 
-			fill_color = Color.Yellow;
-			obw_Color = Color.White;
+			blocks.Add(new Point(start_position.X, start_position.Y));
+			blocks.Add(new Point(start_position.X + 1, start_position.Y));
+			blocks.Add(new Point(start_position.X, start_position.Y + 1));
+			blocks.Add(new Point(start_position.X + 1, start_position.Y + 1));
 
-			//Kształt kwadratu
-			blocks.Add(new Point(current_position.X, current_position.Y));
-			blocks.Add(new Point(current_position.X + 1, current_position.Y));
-			blocks.Add(new Point(current_position.X, current_position.Y + 1));
-			blocks.Add(new Point(current_position.X + 1, current_position.Y + 1));
 		}
 
 		public override void Rotate()
 		{
-			//Kształt "0" się nie obraca, więc nie ma implementacji. Metoda zostaje aby zachować zgodność z klasą abstrakcyjną
+			//Nie obracaj
 		}
+
 	}
 
 	public class ShapeS : Tetronimo
 	{
-		public ShapeS(Tile[,] grid, Point start_position, ShapeRotation shapeRotation)
-			: base(grid, start_position, shapeRotation)
-		{ }
+		public ShapeS(Tile[,] grid)
+			: base(grid)
+		{
+			fill_color = Color.Red;
+			obw_Color = Color.White;
+		}
 
 		public override void Initialize_Shape()
 		{
-			blocks.Clear();
+			start_position = new Point(3, 1);
 
-			fill_color = Color.Red;
-			obw_Color = Color.White;
+			blocks.Add(new Point(start_position.X, start_position.Y));
+			blocks.Add(new Point(start_position.X + 1, start_position.Y));
+			blocks.Add(new Point(start_position.X + 1, start_position.Y - 1));
+			blocks.Add(new Point(start_position.X + 2, start_position.Y - 1));
 
-			//Kształt S
-			if(shape_rotation == ShapeRotation.Zero || shape_rotation == ShapeRotation.OneEighty)
-			{
-				blocks.Add(new Point(current_position.X, current_position.Y + 1));
-				blocks.Add(new Point(current_position.X + 1, current_position.Y + 1));
-				blocks.Add(new Point(current_position.X + 1, current_position.Y));
-				blocks.Add(new Point(current_position.X + 2, current_position.Y));
-			}
-			else
-			{
-				blocks.Add(new Point(current_position.X, current_position.Y));
-				blocks.Add(new Point(current_position.X, current_position.Y + 1));
-				blocks.Add(new Point(current_position.X + 1, current_position.Y + 1));
-				blocks.Add(new Point(current_position.X + 1, current_position.Y + 2));
-			}
+			list_pivot_element = 1;
+			pivot = blocks[list_pivot_element];
 		}
 
-		public override void Rotate()
-		{
-			shape_axis = blocks[1]; //Punkt wokół którego obracamy kształt
-			shape_rotation = (ShapeRotation)(((int)shape_rotation + 90) % 360); //Zmiana obrotu
 
-			Clear(); //Czyszczenie poprzedniego stanu obiektu
-
-			//Tutaj manipulujemy punktami kształtu tylko w 2 płaszczyznach wertykalnie i horyzontalnie
-			if (shape_rotation == ShapeRotation.Zero || shape_rotation == ShapeRotation.OneEighty)
-			{
-				blocks[0] = new Point(shape_axis.X - 1, shape_axis.Y);
-				blocks[1] = new Point(shape_axis.X, shape_axis.Y);
-				blocks[2] = new Point(shape_axis.X, shape_axis.Y - 1);
-				blocks[3] = new Point(shape_axis.X + 1, shape_axis.Y - 1);
-			}
-			else
-			{
-				blocks[0] = new Point(shape_axis.X, shape_axis.Y - 1);
-				blocks[1] = new Point(shape_axis.X, shape_axis.Y);
-				blocks[2] = new Point(shape_axis.X + 1, shape_axis.Y);
-				blocks[3] = new Point(shape_axis.X + 1, shape_axis.Y + 1);
-			}
-
-			Draw(); //Przerysowanie kształtu
-		}
 	}
 
 	public class ShapeZ : Tetronimo
 	{
-		public ShapeZ(Tile[,] grid, Point start_position, ShapeRotation shapeRotation)
-			: base(grid, start_position, shapeRotation)
-		{ }
+		public ShapeZ(Tile[,] grid)
+			: base(grid)
+		{
+			fill_color = Color.LawnGreen;
+			obw_Color = Color.White;
+		}
 
 		public override void Initialize_Shape()
 		{
-			blocks.Clear();
+			start_position = new Point(3, 0);
 
-			fill_color = Color.LawnGreen;
-			obw_Color = Color.White;
+			blocks.Add(new Point(start_position.X, start_position.Y));
+			blocks.Add(new Point(start_position.X + 1, start_position.Y));
+			blocks.Add(new Point(start_position.X + 1, start_position.Y + 1));
+			blocks.Add(new Point(start_position.X + 2, start_position.Y + 1));
 
-			//Kształt Z
-			if (shape_rotation == ShapeRotation.Zero || shape_rotation == ShapeRotation.OneEighty)
-			{
-				blocks.Add(new Point(current_position.X, current_position.Y));
-				blocks.Add(new Point(current_position.X + 1, current_position.Y));
-				blocks.Add(new Point(current_position.X + 1, current_position.Y + 1));
-				blocks.Add(new Point(current_position.X + 2, current_position.Y + 1));
-			}
-			else
-			{
-				blocks.Add(new Point(current_position.X + 1, current_position.Y));
-				blocks.Add(new Point(current_position.X, current_position.Y + 1));
-				blocks.Add(new Point(current_position.X + 1, current_position.Y + 1));
-				blocks.Add(new Point(current_position.X, current_position.Y + 2));
-			}
-
+			list_pivot_element = 2;
+			pivot = blocks[list_pivot_element];
 		}
 
-		public override void Rotate()
-		{
-			shape_axis = blocks[1]; // Punkt wokół którego obracamy kształt
-			shape_rotation = (ShapeRotation)(((int)shape_rotation + 90) % 360); // Zmiana obrotu
 
-			Clear(); // Czyszczenie poprzedniego stanu obiektu
-
-			// Manipulacja punktami kształtu w dwóch płaszczyznach wertykalnie i horyzontalnie
-			if (shape_rotation == ShapeRotation.Zero || shape_rotation == ShapeRotation.OneEighty)
-			{
-				blocks[0] = new Point(shape_axis.X - 1, shape_axis.Y);
-				blocks[1] = new Point(shape_axis.X, shape_axis.Y);
-				blocks[2] = new Point(shape_axis.X, shape_axis.Y + 1);
-				blocks[3] = new Point(shape_axis.X + 1, shape_axis.Y + 1);
-			}
-			else
-			{
-				blocks[0] = new Point(shape_axis.X, shape_axis.Y - 1);
-				blocks[1] = new Point(shape_axis.X, shape_axis.Y);
-				blocks[2] = new Point(shape_axis.X - 1, shape_axis.Y);
-				blocks[3] = new Point(shape_axis.X - 1, shape_axis.Y + 1);
-			}
-
-			Draw(); // Przerysowanie kształtu
-		}
 	}
 
 	public class ShapeL : Tetronimo
 	{
-		public ShapeL(Tile[,] grid, Point start_position, ShapeRotation shapeRotation)
-			: base(grid, start_position, shapeRotation)
-		{ }
+		public ShapeL(Tile[,] grid)
+			: base(grid)
+		{
+			fill_color = Color.Orange;
+			obw_Color = Color.White;
+		}
 
 		public override void Initialize_Shape()
 		{
-			blocks.Clear();
+			start_position = new Point(3, 1);
 
-			fill_color = Color.Orange;
-			obw_Color = Color.White;
+			blocks.Add(new Point(start_position.X, start_position.Y));
+			blocks.Add(new Point(start_position.X + 1, start_position.Y));
+			blocks.Add(new Point(start_position.X + 2, start_position.Y));
+			blocks.Add(new Point(start_position.X + 2, start_position.Y - 1));
 
-			//Kształt L
-			if (shape_rotation == ShapeRotation.Zero)
-			{
-				blocks.Add(new Point(current_position.X, current_position.Y));
-				blocks.Add(new Point(current_position.X + 1, current_position.Y));
-				blocks.Add(new Point(current_position.X + 2, current_position.Y));
-				blocks.Add(new Point(current_position.X, current_position.Y + 1));
-			}
-			else if (shape_rotation == ShapeRotation.Ninety)
-			{
-				blocks.Add(new Point(current_position.X, current_position.Y));
-				blocks.Add(new Point(current_position.X, current_position.Y + 1));
-				blocks.Add(new Point(current_position.X, current_position.Y + 2));
-				blocks.Add(new Point(current_position.X - 1, current_position.Y));
-			}
-			else if (shape_rotation == ShapeRotation.OneEighty)
-			{
-				blocks.Add(new Point(current_position.X, current_position.Y));
-				blocks.Add(new Point(current_position.X + 1, current_position.Y));
-				blocks.Add(new Point(current_position.X + 2, current_position.Y));
-				blocks.Add(new Point(current_position.X + 2, current_position.Y - 1));
-			}
-			else
-			{
-				blocks.Add(new Point(current_position.X, current_position.Y));
-				blocks.Add(new Point(current_position.X, current_position.Y + 1));
-				blocks.Add(new Point(current_position.X, current_position.Y + 2));
-				blocks.Add(new Point(current_position.X + 1, current_position.Y + 2));
-			}
-
+			list_pivot_element = 1;
+			pivot = blocks[list_pivot_element];
 		}
 
-		public override void Rotate()
-		{
-			shape_axis = blocks[1]; // Punkt wokół którego obracamy kształt
-			shape_rotation = (ShapeRotation)(((int)shape_rotation + 90) % 360); // Zmiana obrotu
 
-			Clear(); // Czyszczenie poprzedniego stanu obiektu
-
-			// Manipulacja punktami kształtu w czterech płaszczyznach
-			if (shape_rotation == ShapeRotation.Zero)
-			{
-				blocks[0] = new Point(shape_axis.X - 1, shape_axis.Y);
-				blocks[1] = new Point(shape_axis.X, shape_axis.Y);
-				blocks[2] = new Point(shape_axis.X + 1, shape_axis.Y);
-				blocks[3] = new Point(shape_axis.X - 1, shape_axis.Y + 1);
-			}
-			else if (shape_rotation == ShapeRotation.Ninety)
-			{
-				blocks[0] = new Point(shape_axis.X, shape_axis.Y - 1);
-				blocks[1] = new Point(shape_axis.X, shape_axis.Y);
-				blocks[2] = new Point(shape_axis.X, shape_axis.Y + 1);
-				blocks[3] = new Point(shape_axis.X - 1, shape_axis.Y - 1);
-			}
-			else if (shape_rotation == ShapeRotation.OneEighty)
-			{
-				blocks[0] = new Point(shape_axis.X - 1, shape_axis.Y);
-				blocks[1] = new Point(shape_axis.X, shape_axis.Y);
-				blocks[2] = new Point(shape_axis.X + 1, shape_axis.Y);
-				blocks[3] = new Point(shape_axis.X + 1, shape_axis.Y - 1);
-			}
-			else
-			{
-				blocks[0] = new Point(shape_axis.X, shape_axis.Y - 1);
-				blocks[1] = new Point(shape_axis.X, shape_axis.Y);
-				blocks[2] = new Point(shape_axis.X, shape_axis.Y + 1);
-				blocks[3] = new Point(shape_axis.X + 1, shape_axis.Y + 1);
-			}
-
-			Draw(); // Przerysowanie kształtu
-		}
 	}
 
 	public class ShapeJ : Tetronimo
 	{
-		public ShapeJ(Tile[,] grid, Point start_position, ShapeRotation shapeRotation)
-			: base(grid, start_position, shapeRotation)
-		{ }
+		public ShapeJ(Tile[,] grid)
+			: base(grid)
+		{
+			fill_color = Color.HotPink;
+			obw_Color = Color.White;
+		}
 
 		public override void Initialize_Shape()
 		{
-			blocks.Clear();
+			start_position = new Point(3, 0);
 
-			fill_color = Color.HotPink;
-			obw_Color = Color.White;
+			blocks.Add(new Point(start_position.X, start_position.Y));
+			blocks.Add(new Point(start_position.X, start_position.Y + 1));
+			blocks.Add(new Point(start_position.X + 1, start_position.Y + 1));
+			blocks.Add(new Point(start_position.X + 2, start_position.Y + 1));
 
-			//Kształt J
-			if (shape_rotation == ShapeRotation.Zero)
-			{
-				blocks.Add(new Point(current_position.X, current_position.Y));
-				blocks.Add(new Point(current_position.X + 1, current_position.Y));
-				blocks.Add(new Point(current_position.X + 2, current_position.Y));
-				blocks.Add(new Point(current_position.X + 2, current_position.Y + 1));
-			}
-			else if (shape_rotation == ShapeRotation.Ninety)
-			{
-				blocks.Add(new Point(current_position.X, current_position.Y));
-				blocks.Add(new Point(current_position.X, current_position.Y + 1));
-				blocks.Add(new Point(current_position.X, current_position.Y + 2));
-				blocks.Add(new Point(current_position.X - 1, current_position.Y + 2));
-			}
-			else if (shape_rotation == ShapeRotation.OneEighty)
-			{
-				blocks.Add(new Point(current_position.X, current_position.Y));
-				blocks.Add(new Point(current_position.X + 1, current_position.Y));
-				blocks.Add(new Point(current_position.X + 2, current_position.Y));
-				blocks.Add(new Point(current_position.X, current_position.Y - 1));
-			}
-			else
-			{
-				blocks.Add(new Point(current_position.X, current_position.Y));
-				blocks.Add(new Point(current_position.X, current_position.Y + 1));
-				blocks.Add(new Point(current_position.X, current_position.Y + 2));
-				blocks.Add(new Point(current_position.X + 1, current_position.Y));
-			}
+			list_pivot_element = 2;
+			pivot = blocks[list_pivot_element];
 		}
 
-		public override void Rotate()
-		{
-			shape_axis = blocks[1]; // Punkt wokół którego obracamy kształt
-			shape_rotation = (ShapeRotation)(((int)shape_rotation + 90) % 360); // Zmiana obrotu
-
-			Clear(); // Czyszczenie poprzedniego stanu obiektu
-
-			// Manipulacja punktami kształtu w czterech płaszczyznach
-			if (shape_rotation == ShapeRotation.Zero)
-			{
-				blocks[0] = new Point(shape_axis.X - 1, shape_axis.Y);
-				blocks[1] = new Point(shape_axis.X, shape_axis.Y);
-				blocks[2] = new Point(shape_axis.X + 1, shape_axis.Y);
-				blocks[3] = new Point(shape_axis.X + 1, shape_axis.Y + 1);
-			}
-			else if (shape_rotation == ShapeRotation.Ninety)
-			{
-				blocks[0] = new Point(shape_axis.X, shape_axis.Y - 1);
-				blocks[1] = new Point(shape_axis.X, shape_axis.Y);
-				blocks[2] = new Point(shape_axis.X, shape_axis.Y + 1);
-				blocks[3] = new Point(shape_axis.X - 1, shape_axis.Y + 1);
-			}
-			else if (shape_rotation == ShapeRotation.OneEighty)
-			{
-				blocks[0] = new Point(shape_axis.X + 1, shape_axis.Y);
-				blocks[1] = new Point(shape_axis.X, shape_axis.Y);
-				blocks[2] = new Point(shape_axis.X - 1, shape_axis.Y);
-				blocks[3] = new Point(shape_axis.X - 1, shape_axis.Y - 1);
-			}
-			else
-			{
-				blocks[0] = new Point(shape_axis.X, shape_axis.Y - 1);
-				blocks[1] = new Point(shape_axis.X, shape_axis.Y);
-				blocks[2] = new Point(shape_axis.X, shape_axis.Y + 1);
-				blocks[3] = new Point(shape_axis.X + 1, shape_axis.Y + 1);
-			}
-
-			Draw(); // Przerysowanie kształtu
-		}
 	}
 
 	public class ShapeT : Tetronimo
 	{
-		public ShapeT(Tile[,] grid, Point start_position, ShapeRotation shapeRotation)
-			: base(grid, start_position, shapeRotation)
-		{ }
+		public ShapeT(Tile[,] grid)
+			: base(grid)
+		{
+			fill_color = Color.MediumPurple;
+			obw_Color = Color.White;
+		}
 
 		public override void Initialize_Shape()
 		{
-			blocks.Clear();
+			start_position = new Point(4, 0);
 
-			fill_color = Color.MediumPurple;
-			obw_Color = Color.White;
-
-			//Kształt T
-			if (shape_rotation == ShapeRotation.Zero)
-			{
-				blocks.Add(new Point(current_position.X, current_position.Y));
-				blocks.Add(new Point(current_position.X + 1, current_position.Y));
-				blocks.Add(new Point(current_position.X + 2, current_position.Y));
-				blocks.Add(new Point(current_position.X + 1, current_position.Y + 1));
-			}
-			else if (shape_rotation == ShapeRotation.Ninety)
-			{
-				blocks.Add(new Point(current_position.X, current_position.Y));
-				blocks.Add(new Point(current_position.X, current_position.Y + 1));
-				blocks.Add(new Point(current_position.X, current_position.Y + 2));
-				blocks.Add(new Point(current_position.X - 1, current_position.Y + 1));
-			}
-			else if (shape_rotation == ShapeRotation.OneEighty)
-			{
-				blocks.Add(new Point(current_position.X, current_position.Y));
-				blocks.Add(new Point(current_position.X + 1, current_position.Y));
-				blocks.Add(new Point(current_position.X + 2, current_position.Y));
-				blocks.Add(new Point(current_position.X + 1, current_position.Y - 1));
-			}
-			else
-			{
-				blocks.Add(new Point(current_position.X, current_position.Y));
-				blocks.Add(new Point(current_position.X, current_position.Y + 1));
-				blocks.Add(new Point(current_position.X, current_position.Y + 2));
-				blocks.Add(new Point(current_position.X + 1, current_position.Y + 1));
-			}
-
+			blocks.Add(new Point(start_position.X, start_position.Y));
+			blocks.Add(new Point(start_position.X - 1, start_position.Y + 1));
+			blocks.Add(new Point(start_position.X, start_position.Y + 1));
+			blocks.Add(new Point(start_position.X + 1, start_position.Y + 1));
+			
+			list_pivot_element = 2;
+			pivot = blocks[list_pivot_element];
 		}
 
-		public override void Rotate()
-		{
-			shape_axis = blocks[1]; // Punkt wokół którego obracamy kształt
-			shape_rotation = (ShapeRotation)(((int)shape_rotation + 90) % 360); // Zmiana obrotu
 
-			Clear(); // Czyszczenie poprzedniego stanu obiektu
-
-			// Manipulacja punktami kształtu w czterech płaszczyznach
-			if (shape_rotation == ShapeRotation.Zero)
-			{
-				blocks[0] = new Point(shape_axis.X - 1, shape_axis.Y);
-				blocks[1] = new Point(shape_axis.X, shape_axis.Y);
-				blocks[2] = new Point(shape_axis.X + 1, shape_axis.Y);
-				blocks[3] = new Point(shape_axis.X, shape_axis.Y + 1);
-			}
-			else if (shape_rotation == ShapeRotation.Ninety)
-			{
-				blocks[0] = new Point(shape_axis.X, shape_axis.Y - 1);
-				blocks[1] = new Point(shape_axis.X, shape_axis.Y);
-				blocks[2] = new Point(shape_axis.X, shape_axis.Y + 1);
-				blocks[3] = new Point(shape_axis.X - 1, shape_axis.Y);
-			}
-			else if (shape_rotation == ShapeRotation.OneEighty)
-			{
-				blocks[0] = new Point(shape_axis.X - 1, shape_axis.Y);
-				blocks[1] = new Point(shape_axis.X, shape_axis.Y);
-				blocks[2] = new Point(shape_axis.X + 1, shape_axis.Y);
-				blocks[3] = new Point(shape_axis.X, shape_axis.Y - 1);
-			}
-			else
-			{
-				blocks[0] = new Point(shape_axis.X, shape_axis.Y - 1);
-				blocks[1] = new Point(shape_axis.X, shape_axis.Y);
-				blocks[2] = new Point(shape_axis.X, shape_axis.Y + 1);
-				blocks[3] = new Point(shape_axis.X + 1, shape_axis.Y);
-			}
-
-			Draw(); // Przerysowanie kształtu
-		}
 	}
 }
