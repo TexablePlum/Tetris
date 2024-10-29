@@ -13,8 +13,9 @@ namespace Tetris
 		private readonly int rows = 10;
 		private readonly int columns = 20;
 		private Tile[,] grid;
+		private ShapeT shapei;
 
-		private bool spaceKeyWasPressed = false;
+		private bool isSpacePressed = false; // Śledzenie stanu klawisza spacji
 
 		public Main_Grid(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, Point position, int width, int height)
 		   : base(spriteBatch, graphicsDevice, position, width, height)
@@ -23,6 +24,7 @@ namespace Tetris
 			this.graphicsDevice = graphicsDevice;
 
 			Create_Grid();
+			shapei = new ShapeT(grid, new Point(2, 2), ShapeRotation.Zero);
 		}
 
 		private void Create_Grid() //Inicjalizacja planszy
@@ -39,6 +41,25 @@ namespace Tetris
 			}
 		}
 
+		public void Update_Grid()
+		{
+			KeyboardState keyboardState = Keyboard.GetState();
+
+			// Sprawdzenie stanu klawisza spacji
+			if (keyboardState.IsKeyDown(Keys.Space))
+			{
+				if (!isSpacePressed) // Jeśli klawisz nie był wcześniej wciśnięty
+				{
+					shapei.Rotate(); // Obrót kształtu
+					isSpacePressed = true; // Zaznacz, że klawisz został wciśnięty
+				}
+			}
+			else
+			{
+				isSpacePressed = false; // Resetuj stan, gdy klawisz zostanie zwolniony
+			}
+		}
+
 		public void Draw_Grid()
 		{
 			//bazowe rysowanie panelu
@@ -49,6 +70,7 @@ namespace Tetris
 			{
 				tile.Tile_Draw();
 			}
+			shapei.Draw();
 		}
 
 

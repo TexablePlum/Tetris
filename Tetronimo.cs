@@ -10,19 +10,33 @@ namespace Tetris
 		Right
 	}
 
+	public enum ShapeRotation //enum do określenia obrotu kształtu
+	{
+		Zero = 0,
+		Ninety = 90,
+		OneEighty = 180,
+		TwoSeventy = 270
+	}
+
 	public abstract class Tetronimo
 	{
 		protected Tile[,] grid; //Referencja do planszy
 		protected List<Point> blocks; //Lista punktów reprezentujących kształt
+
 		protected Color fill_color;
 		protected Color obw_Color;
+
 		protected Point current_position;
 		protected Point start_position;
 
-		public Tetronimo(Tile[,] grid, Point start_position)
+		protected Point shape_axis; //Punkt wokół którego obracamy kształt
+		protected ShapeRotation shape_rotation; //Obecny obrót kształtu
+
+		public Tetronimo(Tile[,] grid, Point start_position, ShapeRotation shape_rotation = ShapeRotation.Zero)
 		{
 			this.grid = grid;
 			this.start_position = start_position;
+			this.shape_rotation = shape_rotation;
 			blocks = new List<Point>(); 
 			current_position = start_position;
 
@@ -78,7 +92,7 @@ namespace Tetris
 			}
 		}
 
-		private void Clear()
+		protected void Clear()
 		{
 			//Implementacja czyszczenia poprzedniego stanu obiektu
 			foreach (var block in blocks)

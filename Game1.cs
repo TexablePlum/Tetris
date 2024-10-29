@@ -49,7 +49,7 @@ namespace Tetris
 			// TODO: use this.Content to load your game content here
 
 			//Inicjalizacja tła
-			background_theme = new Background(_spriteBatch, GraphicsDevice, window_width, window_height, Color.Cyan, Color.Magenta);
+			background_theme = new Background(_spriteBatch, GraphicsDevice, window_width, window_height, new Color(64, 224, 208), new Color(138, 43, 226));
 
 			//Inicjalizacja siatki
 			main_grid = new Main_Grid(_spriteBatch, GraphicsDevice, new Point(25, 25), 420, 840);
@@ -64,6 +64,7 @@ namespace Tetris
 				Exit();
 
 			// TODO: Add your update logic here
+			main_grid.Update_Grid();
 
 			base.Update(gameTime);
 		}
