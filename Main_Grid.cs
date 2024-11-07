@@ -9,15 +9,20 @@ namespace Tetris
 		private SpriteBatch spriteBatch;
 		private GraphicsDevice graphicsDevice;
 
-		private readonly int rows = 10;
-		private readonly int columns = 20;
+		private int rows ;
+		private int columns;
 		private Tile[,] grid;
 
-		public Main_Grid(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, Point position, int width, int height)
+		public int Rows { get => rows; set => rows = value; }
+		public int Columns { get => columns; set => columns = value; }
+
+		public Main_Grid(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, Point position, int width, int height, int rows, int columns)
 		   : base(spriteBatch, graphicsDevice, position, width, height)
 		{
 			this.spriteBatch = spriteBatch;
 			this.graphicsDevice = graphicsDevice;
+			this.rows = rows;
+			this.columns = columns;
 
 			Create_Grid();
 		}
@@ -47,7 +52,6 @@ namespace Tetris
 				tile.Tile_Draw();
 			}
 		}
-
 
 		private int Tile_Size()
 		{

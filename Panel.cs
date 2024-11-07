@@ -12,6 +12,7 @@ namespace Tetris
 		private int width;
 		private int height;
 		private Color color = new Color (22, 22, 20);
+		private Color obw_Color = new Color (249, 40, 255);
 
 		public Point Position { get => position; set => position = value; }
 		public int Width { get => width; set => width = value; }
@@ -36,7 +37,7 @@ namespace Tetris
 
 			// Rysowanie obwielutki
 			Rectangle obw = new Rectangle(position.X - 3, position.Y - 3, width + 6 , height + 6);
-			spriteBatch.Draw(pixel, obw, new Color(249, 40, 255));
+			spriteBatch.Draw(pixel, obw, obw_Color);
 
 			// Rysowanie panelu
 			Rectangle rect = new Rectangle(position.X, position.Y, width, height);

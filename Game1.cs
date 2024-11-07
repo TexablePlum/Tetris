@@ -12,7 +12,7 @@ namespace Tetris
 		//Obiekty gry
 		private Background background_theme;
 		private Main_Grid main_grid;
-		private Panel score_counter;
+		private Score_Panel score_counter;
 
 		//Zmienne rozmiaru okna
 		private int window_width = 800;
@@ -52,10 +52,10 @@ namespace Tetris
 			background_theme = new Background(_spriteBatch, GraphicsDevice, window_width, window_height, new Color(80, 19, 79), new Color(37, 6, 32));
 
 			//Inicjalizacja siatki
-			main_grid = new Main_Grid(_spriteBatch, GraphicsDevice, new Point(25, 25), 420, 840);
+			main_grid = new Main_Grid(_spriteBatch, GraphicsDevice, new Point(25, 25), 420, 840, 10, 20);
 
 			//Inicjalizacja licznika punktów
-			score_counter = new Panel(_spriteBatch, GraphicsDevice, new Point(500, 25), 275, 175);
+			score_counter = new Score_Panel(_spriteBatch, GraphicsDevice, Content);
 		}
 
 		protected override void Update(GameTime gameTime)
@@ -84,5 +84,6 @@ namespace Tetris
 
 			base.Draw(gameTime);
 		}
+
 	}
 }

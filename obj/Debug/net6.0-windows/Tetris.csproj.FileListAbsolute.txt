@@ -36,3 +36,5 @@ C:\Users\domin\source\repos\Tetris\Tetris\obj\Debug\net6.0-windows\Tetris.pdb
 C:\Users\domin\source\repos\Tetris\Tetris\obj\Debug\net6.0-windows\Tetris.genruntimeconfig.cache
 C:\Users\domin\source\repos\Tetris\Tetris\obj\Debug\net6.0-windows\ref\Tetris.dll
 C:\Users\domin\source\repos\Tetris\Tetris\obj\Debug\net6.0-windows\Tetris.sourcelink.json
+C:\Users\domin\source\repos\Tetris\Tetris\bin\Debug\net6.0-windows\Content\Fonts\8-bit-Operator-Main-Size.xnb
+C:\Users\domin\source\repos\Tetris\Tetris\bin\Debug\net6.0-windows\Content\Fonts\8-bit-Operator-Secondary-Size.xnb

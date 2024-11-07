@@ -26,6 +26,9 @@ namespace Tetris
 		protected Color fill_color;
 		protected Color obw_Color;
 
+		protected static Color default_fill_color = new Color(22, 22, 20);
+		protected static Color default_obw_Color = Color.Black;
+
 		protected Point start_position;
 		protected Point pivot;	//Punkt wokół którego obracamy kształt
 		protected RotationStep step;
@@ -131,8 +134,8 @@ namespace Tetris
 			//Implementacja czyszczenia poprzedniego stanu obiektu
 			foreach (var block in blocks)
 			{
-				grid[block.X, block.Y].Fill_Color = Color.Black;
-				grid[block.X, block.Y].Obw_Color = Color.White;
+				grid[block.X, block.Y].Fill_Color = default_fill_color;
+				grid[block.X, block.Y].Obw_Color = default_obw_Color;
 			}
 		}
 
