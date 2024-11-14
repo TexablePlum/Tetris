@@ -20,39 +20,34 @@ namespace Tetris
 
 	public abstract class Tetronimo
 	{
-		protected Tile[,] grid; //Referencja do planszy
 		protected List<Point> blocks; //Lista punktów reprezentujących kształt
 
 		protected Color fill_color;
 		protected Color obw_Color;
 
-		protected static Color default_fill_color = new Color(22, 22, 20);
-		protected static Color default_obw_Color = Color.Black;
-
-		protected Point start_position;
+		protected Point start_position; //Punkt startowy kształtu
 		protected Point pivot;	//Punkt wokół którego obracamy kształt
-		protected RotationStep step;
-
 		protected int list_pivot_element; //Indeks elementu listy będący osią obrotu
 
-		public Tetronimo(Tile[,] grid)
-		{
-			this.grid = grid;
+		protected RotationStep step; //Krok obrotu
 
+		public List<Point> Blocks { get { return blocks; } }
+		public Color Fill_Color { get { return fill_color; } }
+		public Color Obw_Color { get { return obw_Color; } }
+
+
+		public Tetronimo()
+		{
 			step = RotationStep.Step0; //Domyślny krok obrotu
 
 			blocks = new List<Point>();
-			blocks.Clear(); //Czyszczenie listy punktów (dla bezpieczeństwa)
-
-			Initialize_Shape(); 
+			blocks.Clear(); //Czyszczenie listy punktów (dla bezpieczeństwa) 
 		}
 
-		public abstract void Initialize_Shape();
+		public abstract void Initialize_Shape(Point start_point);
 
 		public virtual void Rotate()
 		{
-			Clear(); //Czyszczenie poprzedniego stanu obiektu
-
 			for (var i = 0; i < blocks.Count; i++)
 			{
 				//Obliczenie współrzędnych punktu względem Pivot (środka kształtu)
@@ -71,14 +66,11 @@ namespace Tetris
 
 			step = (RotationStep)(((int)step + 1) % 4); //Zmiana kroku obrotu
 
-			Draw(); //Przerysowanie aby uniknąć migotania
 		}
 
 		public virtual void Move(MoveDirection direction)
 		{
 			//Implementacja ruchu
-
-			Clear(); //Czyszczenie poprzedniego stanu obiektu
 
 			if (direction == MoveDirection.Down) //Ruch w dół
 			{
@@ -108,36 +100,13 @@ namespace Tetris
 
 			Pivot_Updater(list_pivot_element); //Ustawienie nowego punktu obrotu
 
-			Draw(); //Przerysowanie aby uniknąć migotania
 		}
-
-		public virtual void Draw()
-		{
-			//Implementacja rysowania
-			foreach (var block in blocks)
-			{
-				grid[block.X, block.Y].Fill_Color = fill_color;
-				grid[block.X, block.Y].Obw_Color = obw_Color;
-			}
-		}
-
 
 
 
 		//Metody pomocnicze:
 
 
-
-
-		protected void Clear()
-		{
-			//Implementacja czyszczenia poprzedniego stanu obiektu
-			foreach (var block in blocks)
-			{
-				grid[block.X, block.Y].Fill_Color = default_fill_color;
-				grid[block.X, block.Y].Obw_Color = default_obw_Color;
-			}
-		}
 
 		//Jeśli podczas obrotu kształt wychodzi poza planszę
 		protected void Limes_Grid_Possitioner()

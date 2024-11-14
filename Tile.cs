@@ -15,9 +15,8 @@ namespace Tetris
 
 		public Color Fill_Color { get => fill_color; set => fill_color = value; }
 		public Color Obw_Color { get => obw_Color; set => obw_Color = value; }
-		public Point Position { get => position; set => position = value; }
 
-		public Tile(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, int size, Color fill_color, Color obw_Color, Point position)
+		public Tile(SpriteBatch spriteBatch, int size, Color fill_color, Color obw_Color, Point position)
 		{
 			this.spriteBatch = spriteBatch;
 			this.size = size;
@@ -26,7 +25,7 @@ namespace Tetris
 			this.position = position;
 
 			// Stworzenie tekstury 1x1
-			pixel = new Texture2D(graphicsDevice, 1, 1);
+			pixel = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
 			pixel.SetData(new[] { Color.White });
 		}
 

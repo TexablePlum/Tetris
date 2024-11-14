@@ -1,3 +1,2 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/domin/source/repos/Tetris/Tetris/Content/Fonts/8-bit-Operator-Main-Size.spritefont","C:/Users/domin/source/repos/Tetris/Tetris/Content/bin/Windows/Fonts/8-bit-Operator-Main-Size.xnb","FontDescriptionProcessor","SpriteFontContent",2088,70687,0,1999251
-"C:/Users/domin/source/repos/Tetris/Tetris/Content/Fonts/8-bit-Operator-Secondary-Size.spritefont","C:/Users/domin/source/repos/Tetris/Tetris/Content/bin/Windows/Fonts/8-bit-Operator-Secondary-Size.xnb","FontDescriptionProcessor","SpriteFontContent",2088,37919,0,0209351
+"C:/Users/domin/source/repos/Tetris/Tetris/Content/Assets/button_pause.png","C:/Users/domin/source/repos/Tetris/Tetris/Content/bin/Windows/Assets/button_pause.xnb","TextureProcessor","Texture2DContent",4594,1048661,0,1504073
