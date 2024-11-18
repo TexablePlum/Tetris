@@ -18,7 +18,7 @@ namespace Tetris
 		// Buforowane siatki dla kształtów
 		private Dictionary<Tetronimo_Shape, Tile[,]> gridCache = new();
 
-		private Tetronimo_Shape tetronimo_shape = Tetronimo_Shape.ShapeL;
+		private Tetronimo_Shape tetronimo_shape;
 
 		// Właściwość do zmiany kształtu i sprawdzenia czy zmienił się
 		public Tetronimo_Shape Tetronimo_Shape
@@ -41,8 +41,8 @@ namespace Tetris
 			font = content.Load<SpriteFont>("Fonts/Control_Panel_Font");
 
 			// Ustawienie kolorów na transparentne (przezroczyste)
-			Fill_Color = Color.Transparent;
-			Obw_Color = Color.Transparent;
+			Fill_Color = Color_Theme.Game_Theme.Panel_Transparent_Fill_Color;
+			Obw_Color = Color_Theme.Game_Theme.Panel_Transparent_Border_Color;
 
 			// Stworzenie siatek dla wszystkich kształtów
 			Create_Grids();
@@ -53,6 +53,7 @@ namespace Tetris
 
 		public new void Draw()
 		{
+
 			base.Draw(); // Rysowanie panelu z klasy bazowej Panel
 
 			SpriteBatch.Begin();
@@ -62,8 +63,14 @@ namespace Tetris
 			// Rysowanie siatki, jeśli zmienna tetronimo_shape jest różna od domyślnej i lista kształtów nie jest pusta
 			if(tetronimo_shape != default && shapes.Count > 0)
 			{
-				Grid.DrawGrid(grid, Fill_Color, Obw_Color, shapes);
+				Grid.DrawGrid(grid, Color.Transparent, Color.Transparent, shapes);
 			}
+		}
+
+		public new void Update_Theme()
+		{
+			Fill_Color = Color_Theme.Game_Theme.Panel_Transparent_Fill_Color;
+			Obw_Color = Color_Theme.Game_Theme.Panel_Transparent_Border_Color;
 		}
 
 

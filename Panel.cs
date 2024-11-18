@@ -11,8 +11,8 @@ namespace Tetris
 		private Point position;
 		private int width;
 		private int height;
-		private Color fill_color = new Color (22, 22, 20);
-		private Color obw_Color = new Color (249, 40, 255);
+		private Color fill_color;
+		private Color obw_Color;
 
 
 		public SpriteBatch SpriteBatch { get => spriteBatch; set => spriteBatch = value; }
@@ -29,6 +29,8 @@ namespace Tetris
 			this.spriteBatch = spriteBatch;
 			this.width = width;
 			this.height = height;
+			fill_color = Color_Theme.Game_Theme.Panel_Fill_Color;
+			obw_Color = Color_Theme.Game_Theme.Panel_Border_Color;
 
 			// Stworzenie tekstury 1x1
 			pixel = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
@@ -86,6 +88,12 @@ namespace Tetris
 			int grid_width = rows * tile_size;
 			int centered_position = Position.X + (Width - grid_width) / 2;
 			return centered_position;
+		}
+
+		public void Update_Theme()
+		{
+			fill_color = Color_Theme.Game_Theme.Panel_Fill_Color;
+			obw_Color = Color_Theme.Game_Theme.Panel_Border_Color;
 		}
 
 	}

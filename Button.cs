@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 
 namespace Tetris
@@ -17,49 +18,55 @@ namespace Tetris
 	{
 		private readonly SpriteBatch spriteBatch;
 		private ContentManager contentManager;
+		private SpriteFont font;                    // Czcionka przycisku
 		private readonly Background background;		// Tło przycisku
-		private SpriteFont font;					// Czcionka przycisku
 		private Texture2D button_image;				// Obraz przycisku
+
 		private MouseState mouseState;				// Stan myszki
 		private MouseState previousMouseState;		// Poprzedni stan myszki
 		
-		private Dictionary<Button_State, (Color primary_color, Color secondary_color)> colors_cache = new();	//Cache kolorów przycisku w zależności od stanu
+		private Dictionary<Button_State, (Color primary_color, Color secondary_color)> colors_cache = new();	//Cache przycisku w zależności od stanu
 
-		private Color active_color;
-		private Color inactive_color;
+		private Color active_color;					// Kolor aktywnego przycisku
+		private Color inactive_color;				// Kolor nieaktywnego przycisku
 
-		private string button_text;
-		private string button_graphic_path;
+		private string button_text;					// Tekst przycisku
+		private string button_graphic_path;         // Ścieżka do grafiki przycisku
+
+		private Action onClick;						// Akcja wykonywana po kliknięciu przycisku
 
 		private Button_State button_state;
+
+		public Action OnClick { get => onClick; set => onClick = value; }
 		public Button_State Button_State { get => button_state; set => button_state = value; }
 		public string Button_Text { get => button_text; set => button_text = value; }
 
-		public Button(SpriteBatch spriteBatch, ContentManager contentManager, Point position, int width, int height, Color active_color, Color inactive_color, string button_text = "Button", string button_graphic_path = null)
+		public Button(SpriteBatch spriteBatch, ContentManager contentManager, Point position, int width, int height, string button_text = "Button", string button_graphic_path = null)
 			: base(spriteBatch, position, width, height)
 		{
 			this.spriteBatch = spriteBatch;
 			this.contentManager = contentManager;
-			this.active_color = active_color;
-			this.inactive_color = inactive_color;
 			this.button_text = button_text;
 			this.button_graphic_path = button_graphic_path;
-
-			background = new Background(spriteBatch, position, width, height);
-
-			Initialize();
 			this.button_text = button_text;
-		}
+			active_color = Color_Theme.Game_Theme.Button_Active_Color;
+			inactive_color = Color_Theme.Game_Theme.Button_Inactive_Color;
+			Obw_Color = Color_Theme.Game_Theme.Panel_Transparent_Border_Color; // Kolor obwódki przycisku właściwość dziedziczona z klasy Panel
 
-		public void Initialize()
-		{
 			font = contentManager.Load<SpriteFont>("Fonts/Button_Font");
-			if(button_graphic_path != null)
+			if (button_graphic_path != null)
 			{
 				button_image = contentManager.Load<Texture2D>(button_graphic_path);
 			}
-			Obw_Color = Color.Transparent;
 			button_state = Button_State.Active;
+
+			background = new Background(spriteBatch, position, width, height);
+
+			Initialize_Cache();
+		}
+
+		private void Initialize_Cache()
+		{
 			foreach (Button_State state in System.Enum.GetValues(typeof(Button_State)))
 			{
 				colors_cache[state] = Get_Gradients_Fill_Colors(state, active_color, inactive_color);
@@ -82,9 +89,18 @@ namespace Tetris
 			spriteBatch.End();
 
 			var colors = colors_cache[button_state];	// Pobranie kolorów przycisku z cache w zależności od stanu przycisku
-			background.Draw_Background(colors.primary_color, colors.secondary_color);
+			background.Primary_color = colors.primary_color;
+			background.Secondary_color = colors.secondary_color;
+			background.Draw_Background();
 
 			Draw_Button_Content();
+		}
+
+		public new void Update_Theme()
+		{
+			active_color = Color_Theme.Game_Theme.Button_Active_Color;
+			inactive_color = Color_Theme.Game_Theme.Button_Inactive_Color;
+			Initialize_Cache();
 		}
 
 		private (Color primary_color, Color secondary_color) Get_Gradients_Fill_Colors(Button_State button_state, Color active_color, Color inactive_color)
@@ -135,8 +151,8 @@ namespace Tetris
 		{
 			previousMouseState = mouseState;    // Zapisanie poprzedniego stanu myszki
 			mouseState = Mouse.GetState();      // Pobranie stanu myszki
-			var mouse_position = new Point(mouseState.X, mouseState.Y);                                             // Pobranie pozycji myszki
-			bool is_mouse_over = new Rectangle(Position.X, Position.Y, Width, Height).Contains(mouse_position);     // Sprawdzenie czy myszka jest w obszarze przycisku
+			var mouse_position = new Point(mouseState.X, mouseState.Y);                                            // Pobranie pozycji myszki
+			var is_mouse_over = new Rectangle(Position.X, Position.Y, Width, Height).Contains(mouse_position);     // Sprawdzenie czy myszka jest w obszarze przycisku
 
 
 			if ((is_mouse_over && button_state == Button_State.Active) || (is_mouse_over && button_state == Button_State.ActiveHover))	// Jeśli myszka jest nad przyciskiem
@@ -145,6 +161,7 @@ namespace Tetris
 				if (mouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton == ButtonState.Released)				// Jeśli lewy przycisk myszy jest wciśnięty nad przyciskiem
 				{
 					button_state = Button_State.ActiveClicked;
+					onClick?.Invoke();	// Wywołanie akcji po kliknięciu przycisku
 				}
 			}
 			else if (button_state == Button_State.ActiveClicked && mouseState.LeftButton == ButtonState.Released)						// Jeśli lewy przycisk myszy został puszczony

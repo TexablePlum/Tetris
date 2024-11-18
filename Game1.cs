@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System.Threading.Tasks;
 
 namespace Tetris
 {
@@ -12,6 +11,7 @@ namespace Tetris
 
 		//Obiekty gry
 		private Background background_theme;
+		private Starfield starfield;
 		private Main_Grid main_grid;
 		private Score_Panel score_counter;
 		private Next_Shape_Panel control_panel;
@@ -44,6 +44,9 @@ namespace Tetris
 			_graphics.PreferMultiSampling = true; // Wygładzanie krawędzi
 			_graphics.GraphicsDevice.PresentationParameters.MultiSampleCount = 8;
 
+			// Ustawienie kolorystyki
+			Color_Theme.Game_Theme = Color_Theme.Pink;
+
 			_graphics.ApplyChanges();
 
 			base.Initialize();
@@ -58,6 +61,9 @@ namespace Tetris
 			//Inicjalizacja tła
 			background_theme = new Background(_spriteBatch, new Point(0,0), window_width, window_height);
 
+			//Inicjalizacja efektu gwiazd
+			starfield = new Starfield(_spriteBatch, 250, window_width, window_height);
+
 			//Inicjalizacja siatki
 			main_grid = new Main_Grid(_spriteBatch, new Point(25, 25), 420, 840, 10, 20);
 
@@ -66,6 +72,7 @@ namespace Tetris
 
 			//Inicjalizacja panelu sterowania
 			control_panel = new Next_Shape_Panel(_spriteBatch, Content);
+			control_panel.Tetronimo_Shape = Tetronimo_Shape.ShapeT;
 
 			//Inicjalizacja panelu poziomu
 			level_panel = new Level_Panel(_spriteBatch, Content);
@@ -74,14 +81,14 @@ namespace Tetris
 			lines_panel = new Lines_Count_Panel(_spriteBatch, Content);
 
 			//Inicjalizacja przycisku start
-			play_button = new Button(_spriteBatch, Content, new Point(500, 740), 202, 55, new Color(216, 110, 204), new Color(89, 89, 89), "START", "Assets/button_play");
+			play_button = new Button(_spriteBatch, Content, new Point(500, 740), 202, 55, "START", "Assets/button_play");
 
 			//Inicjalizacja przycisku stop
-			stop_button = new Button(_spriteBatch, Content, new Point(720, 740), 55, 55, new Color(216, 110, 204), new Color(89, 89, 89), "", "Assets/button_pause");
+			stop_button = new Button(_spriteBatch, Content, new Point(720, 740), 55, 55, "", "Assets/button_pause");
 			stop_button.Button_State = Button_State.Inactive;
 
 			//Inicjalizacja przycisku start
-			settings_button = new Button(_spriteBatch, Content, new Point(500, 813), 275, 55, new Color(216, 110, 204), new Color(89, 89, 89), "SETTINGS");
+			settings_button = new Button(_spriteBatch, Content, new Point(500, 813), 275, 55, "SETTINGS");
 			
 		}
 
@@ -91,7 +98,9 @@ namespace Tetris
 				Exit();
 
 			// TODO: Add your update logic here
+			starfield.Update();
 			play_button.Update();
+			play_button.OnClick=Change_Style;
 			stop_button.Update();
 			settings_button.Update();
 			base.Update(gameTime);
@@ -106,7 +115,10 @@ namespace Tetris
 			// TODO: Add your drawing code here
 
 			//Tło
-			background_theme.Draw_Background(new Color(80, 19, 79), new Color(37, 6, 32));
+			background_theme.Draw_Background();
+
+			//Gwiazdy
+			starfield.Draw();
 
 			//Siatka
 			main_grid.Draw_Grid();
@@ -134,6 +146,20 @@ namespace Tetris
 			
 
 			base.Draw(gameTime);
+		}
+
+		private void Change_Style()
+		{
+			Color_Theme.Game_Theme = Color_Theme.Cyber_Punk;
+			background_theme.Update_Theme();
+			main_grid.Update_Theme();
+			score_counter.Update_Theme();
+			control_panel.Update_Theme();
+			level_panel.Update_Theme();
+			lines_panel.Update_Theme();
+			play_button.Update_Theme();
+			stop_button.Update_Theme();
+			settings_button.Update_Theme();
 		}
 
 	}

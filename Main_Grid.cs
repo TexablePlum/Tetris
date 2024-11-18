@@ -12,9 +12,6 @@ namespace Tetris
 		private int columns;
 		private Tile[,] grid;
 
-		private Color default_fill_color = new Color(22, 22, 20);
-		private Color default_obw_color = Color.Black;
-
 		public Main_Grid(SpriteBatch spriteBatch, Point position, int width, int height, int rows, int columns)
 		   : base(spriteBatch, position, width, height)
 		{
@@ -27,8 +24,8 @@ namespace Tetris
 
 		private void Create_Grid() //Inicjalizacja planszy
 		{
-			int tileSize = Tile_Size();
-			grid = Grid.CreateGrid(spriteBatch, rows, columns, tileSize, default_fill_color, default_obw_color, Position);
+			int tileSize = Width / rows;
+			grid = Grid.CreateGrid(spriteBatch, rows, columns, tileSize, Color_Theme.Game_Theme.Main_Grid_Fill_Color, Color_Theme.Game_Theme.Main_Grid_Border_Color, Position);
 		}
 
 		public void Draw_Grid()
@@ -37,17 +34,7 @@ namespace Tetris
 			Draw();
 
 			// Rysowanie kafelków
-			Grid.DrawGrid(grid, default_fill_color, default_obw_color, null);
-		}
-
-		private int Tile_Size()
-		{
-			if (Height / Width != 2)
-			{
-				throw new ArgumentException("Grid is not in a 2:1 ratio.");
-			}
-
-			return Width / rows;
+			Grid.DrawGrid(grid, Color_Theme.Game_Theme.Main_Grid_Fill_Color, Color_Theme.Game_Theme.Main_Grid_Border_Color, null);
 		}
 	}
 }

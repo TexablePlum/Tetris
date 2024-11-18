@@ -21,8 +21,8 @@ namespace Tetris
 		private long score_value;
 		private readonly string best_score_text = "BEST: ";
 		private long best_score_value;
-		private readonly Color text_color = Color.White;
-		private readonly Color values_color = Color.HotPink;
+		private Color text_color;
+		private Color values_color;
 
 		public long Score_Value { get => score_value; set => score_value = value; }
 		public long Best_Score_Value { get => best_score_value; set => best_score_value = value; }
@@ -36,6 +36,8 @@ namespace Tetris
 		{
 			this.spriteBatch = spriteBatch;
 			this.content = content;
+			text_color = Color_Theme.Game_Theme.Text_Color;
+			values_color = Color_Theme.Game_Theme.Text_Counters_Color;
 			panel = new Panel(spriteBatch, position, width, height);
 			score_value = 0;
 			best_score_value = 2137420; //TODO: Load best score from file
@@ -58,6 +60,13 @@ namespace Tetris
 			spriteBatch.DrawString(secondary_font, best_score_text, new Vector2(panel.Double_Text_X_Positioner(best_score_text, best_score_value.ToString(), secondary_font).first_string_x, 155), text_color);
 			spriteBatch.DrawString(secondary_font, best_score_value.ToString(), new Vector2(panel.Double_Text_X_Positioner(best_score_text, best_score_value.ToString(), secondary_font).second_string_x, 155), values_color);
 			spriteBatch.End();
+		}
+
+		public void Update_Theme()
+		{
+			panel.Update_Theme();
+			text_color = Color_Theme.Game_Theme.Text_Color;
+			values_color = Color_Theme.Game_Theme.Text_Counters_Color;
 		}
 	}
 }
