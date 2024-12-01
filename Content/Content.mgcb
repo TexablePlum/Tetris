@@ -37,6 +37,66 @@
 /processorParam:TextureFormat=Color
 /build:Assets/button_play.png
 
+#begin Audio/button.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/button.wav
+
+#begin Audio/drop.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/drop.wav
+
+#begin Audio/gameover.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/gameover.wav
+
+#begin Audio/levelup.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/levelup.wav
+
+#begin Audio/line.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/line.wav
+
+#begin Audio/menu.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/menu.ogg
+
+#begin Audio/move.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/move.wav
+
+#begin Audio/music.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/music.ogg
+
+#begin Audio/rotate.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/rotate.wav
+
+#begin Audio/start.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/start.wav
+
 #begin Fonts/8-bit-Operator-Main-Size.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -64,4 +124,11 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:Fonts/Control_Panel_Font.spritefont
+
+#begin Fonts/Copyrights_Font.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/Copyrights_Font.spritefont
 

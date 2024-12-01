@@ -39,3 +39,16 @@ C:\Users\domin\source\repos\Tetris\Tetris\obj\Release\net6.0-windows\refint\Tetr
 C:\Users\domin\source\repos\Tetris\Tetris\obj\Release\net6.0-windows\Tetris.pdb
 C:\Users\domin\source\repos\Tetris\Tetris\obj\Release\net6.0-windows\Tetris.genruntimeconfig.cache
 C:\Users\domin\source\repos\Tetris\Tetris\obj\Release\net6.0-windows\ref\Tetris.dll
+C:\Users\domin\source\repos\Tetris\Tetris\bin\Release\net6.0-windows\Content\Assets\button_pause.xnb
+C:\Users\domin\source\repos\Tetris\Tetris\bin\Release\net6.0-windows\Content\Assets\button_play.xnb
+C:\Users\domin\source\repos\Tetris\Tetris\bin\Release\net6.0-windows\Content\Fonts\Button_Font.xnb
+C:\Users\domin\source\repos\Tetris\Tetris\bin\Release\net6.0-windows\Content\Audio\gameover.xnb
+C:\Users\domin\source\repos\Tetris\Tetris\bin\Release\net6.0-windows\Content\Audio\button.xnb
+C:\Users\domin\source\repos\Tetris\Tetris\bin\Release\net6.0-windows\Content\Audio\drop.xnb
+C:\Users\domin\source\repos\Tetris\Tetris\bin\Release\net6.0-windows\Content\Audio\line.xnb
+C:\Users\domin\source\repos\Tetris\Tetris\bin\Release\net6.0-windows\Content\Audio\move.xnb
+C:\Users\domin\source\repos\Tetris\Tetris\bin\Release\net6.0-windows\Content\Audio\rotate.xnb
+C:\Users\domin\source\repos\Tetris\Tetris\bin\Release\net6.0-windows\Content\Audio\music.wma
+C:\Users\domin\source\repos\Tetris\Tetris\bin\Release\net6.0-windows\Content\Audio\music.xnb
+C:\Users\domin\source\repos\Tetris\Tetris\bin\Release\net6.0-windows\Content\Audio\levelup.xnb
+C:\Users\domin\source\repos\Tetris\Tetris\bin\Release\net6.0-windows\Content\Audio\start.xnb
