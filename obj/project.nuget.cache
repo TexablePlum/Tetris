@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "QrecM0kqifD3twjuh9wER6ytJgNfmiwTEW81q6JBCXASZ18zWPDeCVkXAKjKvqR1b0fPWascrPwaHZ4UI3oZ9g==",
+  "dgSpecHash": "QarHDOd84vA=",
   "success": true,
-  "projectFilePath": "C:\\Users\\domin\\source\\repos\\Tetris\\Tetris\\Tetris.csproj",
+  "projectFilePath": "C:\\Users\\domin\\source\\repos\\TexablePlum\\Tetris\\Tetris\\Tetris.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\domin\\.nuget\\packages\\libuv\\1.9.1\\libuv.1.9.1.nupkg.sha512",
     "C:\\Users\\domin\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\1.1.0\\microsoft.codeanalysis.analyzers.1.1.0.nupkg.sha512",
@@ -124,11 +124,7 @@
     "C:\\Users\\domin\\.nuget\\packages\\system.xml.xdocument\\4.0.11\\system.xml.xdocument.4.0.11.nupkg.sha512",
     "C:\\Users\\domin\\.nuget\\packages\\system.xml.xmldocument\\4.0.1\\system.xml.xmldocument.4.0.1.nupkg.sha512",
     "C:\\Users\\domin\\.nuget\\packages\\system.xml.xpath\\4.0.1\\system.xml.xpath.4.0.1.nupkg.sha512",
-    "C:\\Users\\domin\\.nuget\\packages\\system.xml.xpath.xdocument\\4.0.1\\system.xml.xpath.xdocument.4.0.1.nupkg.sha512",
-    "C:\\Users\\domin\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.25\\microsoft.windowsdesktop.app.ref.6.0.25.nupkg.sha512",
-    "C:\\Users\\domin\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.25\\microsoft.netcore.app.ref.6.0.25.nupkg.sha512",
-    "C:\\Users\\domin\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.25\\microsoft.aspnetcore.app.ref.6.0.25.nupkg.sha512",
-    "C:\\Users\\domin\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.25\\microsoft.netcore.app.host.win-x64.6.0.25.nupkg.sha512"
+    "C:\\Users\\domin\\.nuget\\packages\\system.xml.xpath.xdocument\\4.0.1\\system.xml.xpath.xdocument.4.0.1.nupkg.sha512"
   ],
   "logs": []
 }

@@ -1,1 +1,44 @@
-<?xml version="1.0" encoding="utf-8"?><SourceFileCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><Profile>Reach</Profile><Platform>Windows</Platform><Config /><SourceFiles><File>C:/Users/domin/source/repos/Tetris/Tetris/Content/Assets/button_pause.png</File><File>C:/Users/domin/source/repos/Tetris/Tetris/Content/Assets/button_play.png</File><File>C:/Users/domin/source/repos/Tetris/Tetris/Content/Audio/button.wav</File><File>C:/Users/domin/source/repos/Tetris/Tetris/Content/Audio/drop.wav</File><File>C:/Users/domin/source/repos/Tetris/Tetris/Content/Audio/gameover.wav</File><File>C:/Users/domin/source/repos/Tetris/Tetris/Content/Audio/levelup.wav</File><File>C:/Users/domin/source/repos/Tetris/Tetris/Content/Audio/line.wav</File><File>C:/Users/domin/source/repos/Tetris/Tetris/Content/Audio/menu.ogg</File><File>C:/Users/domin/source/repos/Tetris/Tetris/Content/Audio/move.wav</File><File>C:/Users/domin/source/repos/Tetris/Tetris/Content/Audio/music.ogg</File><File>C:/Users/domin/source/repos/Tetris/Tetris/Content/Audio/rotate.wav</File><File>C:/Users/domin/source/repos/Tetris/Tetris/Content/Audio/start.wav</File><File>C:/Users/domin/source/repos/Tetris/Tetris/Content/Fonts/8-bit-Operator-Main-Size.spritefont</File><File>C:/Users/domin/source/repos/Tetris/Tetris/Content/Fonts/8-bit-Operator-Secondary-Size.spritefont</File><File>C:/Users/domin/source/repos/Tetris/Tetris/Content/Fonts/Button_Font.spritefont</File><File>C:/Users/domin/source/repos/Tetris/Tetris/Content/Fonts/Control_Panel_Font.spritefont</File><File>C:/Users/domin/source/repos/Tetris/Tetris/Content/Fonts/Copyrights_Font.spritefont</File></SourceFiles><DestFiles><File xsi:nil="true" /><File xsi:nil="true" /><File xsi:nil="true" /><File xsi:nil="true" /><File xsi:nil="true" /><File xsi:nil="true" /><File xsi:nil="true" /><File xsi:nil="true" /><File xsi:nil="true" /><File xsi:nil="true" /><File xsi:nil="true" /><File xsi:nil="true" /><File xsi:nil="true" /><File xsi:nil="true" /><File xsi:nil="true" /><File xsi:nil="true" /><File xsi:nil="true" /></DestFiles></SourceFileCollection>
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Profile>Reach</Profile>
+  <Platform>Windows</Platform>
+  <Config />
+  <SourceFiles>
+    <File>C:/Users/domin/source/repos/TexablePlum/Tetris/Content/Assets/button_pause.png</File>
+    <File>C:/Users/domin/source/repos/TexablePlum/Tetris/Content/Assets/button_play.png</File>
+    <File>C:/Users/domin/source/repos/TexablePlum/Tetris/Content/Audio/button.wav</File>
+    <File>C:/Users/domin/source/repos/TexablePlum/Tetris/Content/Audio/drop.wav</File>
+    <File>C:/Users/domin/source/repos/TexablePlum/Tetris/Content/Audio/gameover.wav</File>
+    <File>C:/Users/domin/source/repos/TexablePlum/Tetris/Content/Audio/levelup.wav</File>
+    <File>C:/Users/domin/source/repos/TexablePlum/Tetris/Content/Audio/line.wav</File>
+    <File>C:/Users/domin/source/repos/TexablePlum/Tetris/Content/Audio/menu.ogg</File>
+    <File>C:/Users/domin/source/repos/TexablePlum/Tetris/Content/Audio/move.wav</File>
+    <File>C:/Users/domin/source/repos/TexablePlum/Tetris/Content/Audio/music.ogg</File>
+    <File>C:/Users/domin/source/repos/TexablePlum/Tetris/Content/Audio/rotate.wav</File>
+    <File>C:/Users/domin/source/repos/TexablePlum/Tetris/Content/Audio/start.wav</File>
+    <File>C:/Users/domin/source/repos/TexablePlum/Tetris/Content/Fonts/8-bit-Operator-Main-Size.spritefont</File>
+    <File>C:/Users/domin/source/repos/TexablePlum/Tetris/Content/Fonts/8-bit-Operator-Secondary-Size.spritefont</File>
+    <File>C:/Users/domin/source/repos/TexablePlum/Tetris/Content/Fonts/Button_Font.spritefont</File>
+    <File>C:/Users/domin/source/repos/TexablePlum/Tetris/Content/Fonts/Control_Panel_Font.spritefont</File>
+    <File>C:/Users/domin/source/repos/TexablePlum/Tetris/Content/Fonts/Copyrights_Font.spritefont</File>
+  </SourceFiles>
+  <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+  </DestFiles>
+</SourceFileCollection>

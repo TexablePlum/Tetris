@@ -3,66 +3,146 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Tetris.Game_Components
 {
-    public class Background
-    {
-        private SpriteBatch spriteBatch;
-        private Texture2D pixel;
+	/// <summary>
+	/// Represents the background of the game with a gradient effect.
+	/// </summary>
+	public class Background
+	{
+		#region Private Fields
 
-        private Color primary_color;
-        private Color secondary_color;
+		/// <summary>
+		/// The SpriteBatch used for drawing.
+		/// </summary>
+		private SpriteBatch spriteBatch;
 
-        private Point start_point;
-        private int width;
-        private int height;
+		/// <summary>
+		/// A 1x1 pixel texture used for drawing rectangles.
+		/// </summary>
+		private Texture2D pixel;
 
-        public Point Start_point { get => start_point; set => start_point = value; }
-        public int Width { get => width; set => width = value; }
-        public int Height { get => height; set => height = value; }
-        public Color Primary_color { get => primary_color; set => primary_color = value; }
-        public Color Secondary_color { get => secondary_color; set => secondary_color = value; }
+		/// <summary>
+		/// The primary color of the background.
+		/// </summary>
+		private Color primaryColor;
 
-        public Background(Point start_point, int width, int height)
-        {
-            this.start_point = start_point;
-            this.width = width;
-            this.height = height;
-        }
+		/// <summary>
+		/// The secondary color of the background.
+		/// </summary>
+		private Color secondaryColor;
 
-        public void Load_Content(SpriteBatch spriteBatch)
-        {
-            this.spriteBatch = spriteBatch;
+		/// <summary>
+		/// The starting point (top-left) of the background.
+		/// </summary>
+		private Point startPoint;
 
-            // Stworzenie tekstury 1x1 dla rysowania
-            pixel = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
-            pixel.SetData(new[] { Color.White });
+		/// <summary>
+		/// The width of the background.
+		/// </summary>
+		private int width;
 
-            // Ustawienie kolorów tła
-            primary_color = Color_Theme.Game_Theme.Background_Primary_Color;
-            secondary_color = Color_Theme.Game_Theme.Background_Secondary_Color;
-        }
+		/// <summary>
+		/// The height of the background.
+		/// </summary>
+		private int height;
 
-        public void Draw_Background()
-        {
-            spriteBatch.Begin();
+		#endregion
 
-            // Rysowanie gradientowego tła
-            for (int y = start_point.Y; y < start_point.Y + height; y++)
-            {
-                // Interpolacja koloru pomiędzy color_start a color_end
-                float amount = (float)(y - start_point.Y) / height;
-                Color currentColor = Color.Lerp(primary_color, secondary_color, amount);
+		#region Public Properties
 
-                // Rysowanie jednej linii o szerokości "width" i wysokości 1 piksel
-                spriteBatch.Draw(pixel, new Rectangle(start_point.X, y, width, 1), currentColor);
-            }
+		/// <summary>
+		/// Gets or sets the starting point (top-left) of the background.
+		/// </summary>
+		public Point StartPoint { get => startPoint; set => startPoint = value; }
 
-            spriteBatch.End();
-        }
+		/// <summary>
+		/// Gets or sets the width of the background.
+		/// </summary>
+		public int Width { get => width; set => width = value; }
 
-        public void Update_Theme()
-        {
-            primary_color = Color_Theme.Game_Theme.Background_Primary_Color;
-            secondary_color = Color_Theme.Game_Theme.Background_Secondary_Color;
-        }
-    }
+		/// <summary>
+		/// Gets or sets the height of the background.
+		/// </summary>
+		public int Height { get => height; set => height = value; }
+
+		/// <summary>
+		/// Gets or sets the primary color of the background.
+		/// </summary>
+		public Color PrimaryColor { get => primaryColor; set => primaryColor = value; }
+
+		/// <summary>
+		/// Gets or sets the secondary color of the background.
+		/// </summary>
+		public Color SecondaryColor { get => secondaryColor; set => secondaryColor = value; }
+
+		#endregion
+
+		#region Constructors
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Background"/> class with the specified start point, width, and height.
+		/// </summary>
+		/// <param name="startPoint">The starting point (top-left) of the background.</param>
+		/// <param name="width">The width of the background.</param>
+		/// <param name="height">The height of the background.</param>
+		public Background(Point startPoint, int width, int height)
+		{
+			this.startPoint = startPoint;
+			this.width = width;
+			this.height = height;
+		}
+
+		#endregion
+
+		#region Public Methods
+
+		/// <summary>
+		/// Loads the content needed by the background, including creating a 1x1 pixel texture for drawing.
+		/// Also initializes the primary and secondary colors from the current color theme.
+		/// </summary>
+		/// <param name="spriteBatch">The SpriteBatch used for drawing graphics.</param>
+		public void LoadContent(SpriteBatch spriteBatch)
+		{
+			this.spriteBatch = spriteBatch;
+
+			// Create a 1x1 pixel texture for drawing.
+			pixel = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
+			pixel.SetData(new[] { Color.White });
+
+			// Set background colors from the current color theme.
+			primaryColor = ColorTheme.GameTheme.BackgroundPrimaryColor;
+			secondaryColor = ColorTheme.GameTheme.BackgroundSecondaryColor;
+		}
+
+		/// <summary>
+		/// Draws the background as a gradient by interpolating between the primary and secondary colors.
+		/// </summary>
+		public void DrawBackground()
+		{
+			spriteBatch.Begin();
+
+			// Draw the gradient background line by line.
+			for (int y = startPoint.Y; y < startPoint.Y + height; y++)
+			{
+				// Calculate the interpolation amount.
+				float amount = (float)(y - startPoint.Y) / height;
+				Color currentColor = Color.Lerp(primaryColor, secondaryColor, amount);
+
+				// Draw a single pixel line with the current color.
+				spriteBatch.Draw(pixel, new Rectangle(startPoint.X, y, width, 1), currentColor);
+			}
+
+			spriteBatch.End();
+		}
+
+		/// <summary>
+		/// Updates the background theme by reassigning the primary and secondary colors from the current color theme.
+		/// </summary>
+		public void UpdateTheme()
+		{
+			primaryColor = ColorTheme.GameTheme.BackgroundPrimaryColor;
+			secondaryColor = ColorTheme.GameTheme.BackgroundSecondaryColor;
+		}
+
+		#endregion
+	}
 }

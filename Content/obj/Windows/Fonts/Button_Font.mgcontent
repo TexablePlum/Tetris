@@ -1,1 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?><PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><SourceFile>C:/Users/domin/source/repos/Tetris/Tetris/Content/Fonts/Button_Font.spritefont</SourceFile><SourceTime>2024-11-14T20:48:03.8848622+01:00</SourceTime><DestFile>C:/Users/domin/source/repos/Tetris/Tetris/Content/bin/Windows/Fonts/Button_Font.xnb</DestFile><DestTime>2024-11-28T00:15:42.4665525+01:00</DestTime><Importer>FontDescriptionImporter</Importer><ImporterTime>2022-07-26T13:44:56+02:00</ImporterTime><Processor>FontDescriptionProcessor</Processor><ProcessorTime>2022-07-26T13:44:56+02:00</ProcessorTime><Parameters><Key>PremultiplyAlpha</Key><Value>True</Value></Parameters><Parameters><Key>TextureFormat</Key><Value>Compressed</Value></Parameters><Dependencies /><BuildAsset /><BuildOutput /></PipelineBuildEvent>
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SourceFile>C:/Users/domin/source/repos/TexablePlum/Tetris/Content/Fonts/Button_Font.spritefont</SourceFile>
+  <SourceTime>2025-03-16T19:29:50.3576191+01:00</SourceTime>
+  <DestFile>C:/Users/domin/source/repos/TexablePlum/Tetris/Content/bin/Windows/Fonts/Button_Font.xnb</DestFile>
+  <DestTime>2025-03-16T19:29:57.914526+01:00</DestTime>
+  <Importer>FontDescriptionImporter</Importer>
+  <ImporterTime>2022-07-26T13:44:56+02:00</ImporterTime>
+  <Processor>FontDescriptionProcessor</Processor>
+  <ProcessorTime>2022-07-26T13:44:56+02:00</ProcessorTime>
+  <Parameters>
+    <Key>PremultiplyAlpha</Key>
+    <Value>True</Value>
+  </Parameters>
+  <Parameters>
+    <Key>TextureFormat</Key>
+    <Value>Compressed</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>

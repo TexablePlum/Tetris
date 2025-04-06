@@ -2,128 +2,216 @@
 
 namespace Tetris.Game_Components
 {
-    public struct Color_Theme
-    {
-        public Color Background_Primary_Color { get; }
-        public Color Background_Secondary_Color { get; }
+	/// <summary>
+	/// Represents a color theme for the game, defining colors for the background, text, panels, buttons, and the main grid.
+	/// </summary>
+	public struct ColorTheme
+	{
+		/// <summary>
+		/// Gets the primary background color.
+		/// </summary>
+		public Color BackgroundPrimaryColor { get; }
 
-        public Color Text_Color { get; }
-        public Color Text_Counters_Color { get; }
+		/// <summary>
+		/// Gets the secondary background color.
+		/// </summary>
+		public Color BackgroundSecondaryColor { get; }
 
-        public Color Panel_Fill_Color { get; }
-        public Color Panel_Border_Color { get; }
+		/// <summary>
+		/// Gets the text color.
+		/// </summary>
+		public Color TextColor { get; }
 
-        public Color Button_Active_Color { get; }
-        public Color Button_Inactive_Color { get; }
+		/// <summary>
+		/// Gets the color used for text counters.
+		/// </summary>
+		public Color TextCountersColor { get; }
 
-        public Color Panel_Transparent_Fill_Color { get; }
-        public Color Panel_Transparent_Border_Color { get; }
+		/// <summary>
+		/// Gets the fill color for panels.
+		/// </summary>
+		public Color PanelFillColor { get; }
 
-        public Color Main_Grid_Fill_Color { get; }
-        public Color Main_Grid_Border_Color { get; }
+		/// <summary>
+		/// Gets the border color for panels.
+		/// </summary>
+		public Color PanelBorderColor { get; }
 
-        public static Color_Theme Game_Theme { get; set; }
+		/// <summary>
+		/// Gets the active color for buttons.
+		/// </summary>
+		public Color ButtonActiveColor { get; }
 
+		/// <summary>
+		/// Gets the inactive color for buttons.
+		/// </summary>
+		public Color ButtonInactiveColor { get; }
 
-        public Color_Theme(Color Background_Primary_Color, Color Background_Secondary_Color, Color Text_Counters_Color, Color Panel_Border_Color, Color Button_Active_Color)
-        {
-            this.Background_Primary_Color = Background_Primary_Color;
-            this.Background_Secondary_Color = Background_Secondary_Color;
-            Text_Color = Color.White;
-            this.Text_Counters_Color = Text_Counters_Color;
-            Panel_Fill_Color = new Color(22, 22, 20);
-            this.Panel_Border_Color = Panel_Border_Color;
-            this.Button_Active_Color = Button_Active_Color;
-            Button_Inactive_Color = new Color(89, 89, 89);
-            Panel_Transparent_Fill_Color = Color.Transparent;
-            Panel_Transparent_Border_Color = Color.Transparent;
-            Main_Grid_Fill_Color = new Color(22, 22, 20);
-            Main_Grid_Border_Color = Color.Black;
-        }
+		/// <summary>
+		/// Gets the transparent fill color for panels.
+		/// </summary>
+		public Color PanelTransparentFillColor { get; }
 
-        // Motywy podstawowe
+		/// <summary>
+		/// Gets the transparent border color for panels.
+		/// </summary>
+		public Color PanelTransparentBorderColor { get; }
 
-        public static Color_Theme Pink => new Color_Theme(
-            Background_Primary_Color: new Color(80, 19, 79),
-            Background_Secondary_Color: new Color(37, 6, 32),
-            Text_Counters_Color: Color.HotPink,
-            Panel_Border_Color: new Color(249, 40, 255),
-            Button_Active_Color: new Color(216, 110, 204)
-        );
+		/// <summary>
+		/// Gets the fill color for the main grid.
+		/// </summary>
+		public Color MainGridFillColor { get; }
 
-        public static Color_Theme Cyan => new Color_Theme(
-            Background_Primary_Color: new Color(1, 83, 79),
-            Background_Secondary_Color: new Color(2, 28, 27),
-            Text_Counters_Color: Color.DarkCyan,
-            Panel_Border_Color: new Color(12, 216, 251),
-            Button_Active_Color: Color.DarkCyan
-        );
+		/// <summary>
+		/// Gets the border color for the main grid.
+		/// </summary>
+		public Color MainGridBorderColor { get; }
 
-        public static Color_Theme Yellow => new Color_Theme(
-            Background_Primary_Color: new Color(80, 83, 2),
-            Background_Secondary_Color: new Color(25, 28, 0),
-            Text_Counters_Color: Color.Yellow,
-            Panel_Border_Color: new Color(253, 247, 13),
-            Button_Active_Color: new Color(171, 167, 9)
-        );
+		/// <summary>
+		/// Gets or sets the current game theme.
+		/// </summary>
+		public static ColorTheme GameTheme { get; set; }
 
-        public static Color_Theme Green => new Color_Theme(
-            Background_Primary_Color: new Color(16, 83, 3),
-            Background_Secondary_Color: new Color(7, 30, 1),
-            Text_Counters_Color: Color.GreenYellow,
-            Panel_Border_Color: new Color(42, 196, 10),
-            Button_Active_Color: Color.DarkGreen
-        );
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ColorTheme"/> struct with the specified color values.
+		/// </summary>
+		/// <param name="BackgroundPrimaryColor">The primary background color.</param>
+		/// <param name="BackgroundSecondaryColor">The secondary background color.</param>
+		/// <param name="TextCountersColor">The color for text counters.</param>
+		/// <param name="PanelBorderColor">The border color for panels.</param>
+		/// <param name="ButtonActiveColor">The active button color.</param>
+		public ColorTheme(Color BackgroundPrimaryColor, Color BackgroundSecondaryColor, Color TextCountersColor, Color PanelBorderColor, Color ButtonActiveColor)
+		{
+			this.BackgroundPrimaryColor = BackgroundPrimaryColor;
+			this.BackgroundSecondaryColor = BackgroundSecondaryColor;
+			TextColor = Color.White;
+			this.TextCountersColor = TextCountersColor;
+			PanelFillColor = new Color(22, 22, 20);
+			this.PanelBorderColor = PanelBorderColor;
+			this.ButtonActiveColor = ButtonActiveColor;
+			ButtonInactiveColor = new Color(89, 89, 89);
+			PanelTransparentFillColor = Color.Transparent;
+			PanelTransparentBorderColor = Color.Transparent;
+			MainGridFillColor = new Color(22, 22, 20);
+			MainGridBorderColor = Color.Black;
+		}
 
-        // Motywy specjalne
+		#region Basic Themes
 
-        public static Color_Theme Cyber_Punk => new Color_Theme(
-            Background_Primary_Color: new Color(10, 10, 10),
-            Background_Secondary_Color: new Color(28, 0, 55),
-            Text_Counters_Color: Color.Fuchsia,
-            Panel_Border_Color: new Color(255, 20, 147),
-            Button_Active_Color: new Color(255, 83, 13)
-        );
+		/// <summary>
+		/// Gets the Pink theme.
+		/// </summary>
+		public static ColorTheme Pink => new ColorTheme(
+			BackgroundPrimaryColor: new Color(80, 19, 79),
+			BackgroundSecondaryColor: new Color(37, 6, 32),
+			TextCountersColor: Color.HotPink,
+			PanelBorderColor: new Color(249, 40, 255),
+			ButtonActiveColor: new Color(216, 110, 204)
+		);
 
-        public static Color_Theme Neon_Dance => new Color_Theme(
-            Background_Primary_Color: new Color(8, 8, 31),
-            Background_Secondary_Color: new Color(50, 0, 87),
-            Text_Counters_Color: new Color(255, 85, 0),
-            Panel_Border_Color: new Color(0, 255, 180),
-            Button_Active_Color: new Color(255, 20, 147)
-        );
+		/// <summary>
+		/// Gets the Cyan theme.
+		/// </summary>
+		public static ColorTheme Cyan => new ColorTheme(
+			BackgroundPrimaryColor: new Color(1, 83, 79),
+			BackgroundSecondaryColor: new Color(2, 28, 27),
+			TextCountersColor: Color.DarkCyan,
+			PanelBorderColor: new Color(12, 216, 251),
+			ButtonActiveColor: Color.DarkCyan
+		);
 
-        public static Color_Theme Lights_City => new Color_Theme(
-            Background_Primary_Color: new Color(10, 10, 30),
-            Background_Secondary_Color: new Color(50, 0, 100),
-            Text_Counters_Color: new Color(255, 255, 0),
-            Panel_Border_Color: new Color(0, 200, 255),
-            Button_Active_Color: new Color(255, 0, 0)
-        );
+		/// <summary>
+		/// Gets the Yellow theme.
+		/// </summary>
+		public static ColorTheme Yellow => new ColorTheme(
+			BackgroundPrimaryColor: new Color(80, 83, 2),
+			BackgroundSecondaryColor: new Color(25, 28, 0),
+			TextCountersColor: Color.Yellow,
+			PanelBorderColor: new Color(253, 247, 13),
+			ButtonActiveColor: new Color(171, 167, 9)
+		);
 
-        public static Color_Theme Cyber_Tropics => new Color_Theme(
-            Background_Primary_Color: new Color(30, 5, 50),
-            Background_Secondary_Color: new Color(7, 46, 33),
-            Text_Counters_Color: new Color(0, 255, 100),
-            Panel_Border_Color: new Color(255, 140, 0),
-            Button_Active_Color: new Color(30, 144, 255)
-        );
+		/// <summary>
+		/// Gets the Green theme.
+		/// </summary>
+		public static ColorTheme Green => new ColorTheme(
+			BackgroundPrimaryColor: new Color(16, 83, 3),
+			BackgroundSecondaryColor: new Color(7, 30, 1),
+			TextCountersColor: Color.GreenYellow,
+			PanelBorderColor: new Color(42, 196, 10),
+			ButtonActiveColor: Color.DarkGreen
+		);
 
-        public static Color_Theme Cosmos_Melody => new Color_Theme(
-            Background_Primary_Color: new Color(5, 0, 20),
-            Background_Secondary_Color: new Color(25, 0, 66),
-            Text_Counters_Color: new Color(173, 216, 230),
-            Panel_Border_Color: new Color(255, 20, 147),
-            Button_Active_Color: new Color(50, 205, 50)
-        );
+		#endregion
 
-        public static Color_Theme Cyber_Shine => new Color_Theme(
-            Background_Primary_Color: new Color(10, 10, 30),
-            Background_Secondary_Color: new Color(40, 0, 70),
-            Text_Counters_Color: new Color(255, 255, 0),
-            Panel_Border_Color: new Color(255, 0, 255),
-            Button_Active_Color: new Color(0, 255, 180)
-        );
+		#region Special Themes
 
-    }
+		/// <summary>
+		/// Gets the Cyber Punk theme.
+		/// </summary>
+		public static ColorTheme Cyber_Punk => new ColorTheme(
+			BackgroundPrimaryColor: new Color(10, 10, 10),
+			BackgroundSecondaryColor: new Color(28, 0, 55),
+			TextCountersColor: Color.Fuchsia,
+			PanelBorderColor: new Color(255, 20, 147),
+			ButtonActiveColor: new Color(255, 83, 13)
+		);
+
+		/// <summary>
+		/// Gets the Neon Dance theme.
+		/// </summary>
+		public static ColorTheme Neon_Dance => new ColorTheme(
+			BackgroundPrimaryColor: new Color(8, 8, 31),
+			BackgroundSecondaryColor: new Color(50, 0, 87),
+			TextCountersColor: new Color(255, 85, 0),
+			PanelBorderColor: new Color(0, 255, 180),
+			ButtonActiveColor: new Color(255, 20, 147)
+		);
+
+		/// <summary>
+		/// Gets the Lights City theme.
+		/// </summary>
+		public static ColorTheme Lights_City => new ColorTheme(
+			BackgroundPrimaryColor: new Color(10, 10, 30),
+			BackgroundSecondaryColor: new Color(50, 0, 100),
+			TextCountersColor: new Color(255, 255, 0),
+			PanelBorderColor: new Color(0, 200, 255),
+			ButtonActiveColor: new Color(255, 0, 0)
+		);
+
+		/// <summary>
+		/// Gets the Cyber Tropics theme.
+		/// </summary>
+		public static ColorTheme Cyber_Tropics => new ColorTheme(
+			BackgroundPrimaryColor: new Color(30, 5, 50),
+			BackgroundSecondaryColor: new Color(7, 46, 33),
+			TextCountersColor: new Color(0, 255, 100),
+			PanelBorderColor: new Color(255, 140, 0),
+			ButtonActiveColor: new Color(30, 144, 255)
+		);
+
+		/// <summary>
+		/// Gets the Cosmos Melody theme.
+		/// </summary>
+		public static ColorTheme Cosmos_Melody => new ColorTheme(
+			BackgroundPrimaryColor: new Color(5, 0, 20),
+			BackgroundSecondaryColor: new Color(25, 0, 66),
+			TextCountersColor: new Color(173, 216, 230),
+			PanelBorderColor: new Color(255, 20, 147),
+			ButtonActiveColor: new Color(50, 205, 50)
+		);
+
+		/// <summary>
+		/// Gets the Cyber Shine theme.
+		/// </summary>
+		public static ColorTheme Cyber_Shine => new ColorTheme(
+			BackgroundPrimaryColor: new Color(10, 10, 30),
+			BackgroundSecondaryColor: new Color(40, 0, 70),
+			TextCountersColor: new Color(255, 255, 0),
+			PanelBorderColor: new Color(255, 0, 255),
+			ButtonActiveColor: new Color(0, 255, 180)
+		);
+
+		#endregion
+	}
 }

@@ -1,22 +1,42 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 using Tetris.Game_Components;
+using Tetris.Scenes;
 
 namespace Tetris
 {
-    public class Game1 : Game
+	/// <summary>
+	/// The main game class. Responsible for initializing, loading content, updating, and drawing the game.
+	/// </summary>
+	public class Game1 : Game
 	{
-		private const string AppVersion = "1.0.0-Previous Alpha";
+		/// <summary>
+		/// The application version.
+		/// </summary>
+		private const string AppVersion = "1.0.0";
+
+		/// <summary>
+		/// Global game settings.
+		/// </summary>
+		public static Settings GameSettings;
 
 		private GraphicsDeviceManager _graphics;
 		private SpriteBatch _spriteBatch;
-		public static Scenes_Manager Scene;
-		private SpriteFont app_version_font;
+		private SpriteFont appVersionFont;
 
-		//prywatne Zmienne rozdzielczości
-		private int window_width = 800;
-		private int window_height = 900;
+		/// <summary>
+		/// Manages scenes (screen transitions and updates).
+		/// </summary>
+		public static ScenesManager Scene;
 
+		// resolution variables.
+		private int windowWidth = 800;
+		private int windowHeight = 900;
+
+		/// <summary>
+		/// Initializes a new instance of the Game1 class.
+		/// </summary>
 		public Game1()
 		{
 			_graphics = new GraphicsDeviceManager(this);
@@ -24,66 +44,77 @@ namespace Tetris
 			IsMouseVisible = true;
 		}
 
+		/// <summary>
+		/// Initializes the game. Sets up screen resolution, multi-sampling, loads game settings, and initializes the scene manager.
+		/// </summary>
 		protected override void Initialize()
 		{
-			// TODO: Add your initialization logic here
+			// Load settings from file (or create default settings if necessary)
+			GameSettings = SettingsManager.LoadSettings();
 
-			// Ustawienie rozdzielczości ekranu
-			_graphics.PreferredBackBufferWidth = window_width; // Wymiary szerokości
-			_graphics.PreferredBackBufferHeight = window_height; // Wymiary wysokości
+			// Set the preferred screen resolution.
+			_graphics.PreferredBackBufferWidth = windowWidth;
+			_graphics.PreferredBackBufferHeight = windowHeight;
 
-			// MSAA
-			_graphics.PreferMultiSampling = true; // Wygładzanie krawędzi
+			// Enable MSAA (Multi-Sample Anti-Aliasing) for smoother edges.
+			_graphics.PreferMultiSampling = true;
 			_graphics.GraphicsDevice.PresentationParameters.MultiSampleCount = 8;
-
 			_graphics.ApplyChanges();
 
-			Scene = new Scenes_Manager(Tetris.Scene.Start_Scene);
-			Scene.Initialize(window_width, window_height);
+			// Initialize the scene manager with the starting scene.
+			Scene = new ScenesManager(new StartScene());
+			Scene.Initialize(windowWidth, windowHeight);
 
 			base.Initialize();
 		}
 
+		/// <summary>
+		/// Loads game content, such as textures, audio, and fonts.
+		/// </summary>
 		protected override void LoadContent()
 		{
 			_spriteBatch = new SpriteBatch(GraphicsDevice);
 
-			// TODO: use this.Content to load your game content here
+			// Load audio resources.
+			SoundManager.Load(Content);
+			MediaPlayer.Play(SoundManager.MenuMusic);
+			MediaPlayer.IsRepeating = true;
 
-			// Ustawienie koloru tła
-			Color_Theme.Game_Theme = Color_Theme.Lights_City;
-
-			// Wczytanie audio
-			Sound_Manager.Load(Content);
-
+			// Load content for the current scene.
 			Scene.LoadContent(_spriteBatch, Content);
 
-			app_version_font = Content.Load<SpriteFont>("Fonts/Copyrights_Font");
-			
+			// Load the font used to display the application version.
+			appVersionFont = Content.Load<SpriteFont>("Fonts/Copyrights_Font");
 		}
 
+		/// <summary>
+		/// Updates the game state. Delegates update logic to the active scene.
+		/// </summary>
+		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime)
 		{
-			// TODO: Add your update logic here
-
+			// Update the active scene.
 			Scene.Update(gameTime);
 
 			base.Update(gameTime);
 		}
 
+		/// <summary>
+		/// Draws the game. Clears the screen, draws the current scene, and renders the application version.
+		/// </summary>
+		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
 			GraphicsDevice.Clear(Color.Black);
 
-			// TODO: Add your drawing code here
+			// Draw the active scene.
 			Scene.Draw(gameTime);
 
 			_spriteBatch.Begin();
-			_spriteBatch.DrawString(app_version_font, $"Version: {AppVersion}", new Vector2(540, window_height - 20), Color.White);
+			_spriteBatch.DrawString(appVersionFont, $"Version: {AppVersion}", new Vector2(675, windowHeight - 20), Color.White);
 			_spriteBatch.End();
 
 			base.Draw(gameTime);
 		}
-
 	}
 }

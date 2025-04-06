@@ -1,1 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?><PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><SourceFile>C:/Users/domin/source/repos/Tetris/Tetris/Content/Audio/music.ogg</SourceFile><SourceTime>2024-11-21T01:27:26.4563473+01:00</SourceTime><DestFile>C:/Users/domin/source/repos/Tetris/Tetris/Content/bin/Windows/Audio/music.xnb</DestFile><DestTime>2024-11-28T00:15:42.0398962+01:00</DestTime><Importer>OggImporter</Importer><ImporterTime>2022-07-26T13:44:56+02:00</ImporterTime><Processor>SongProcessor</Processor><ProcessorTime>2022-07-26T13:44:56+02:00</ProcessorTime><Parameters><Key>Quality</Key><Value>Best</Value></Parameters><Dependencies /><BuildAsset /><BuildOutput><string>C:/Users/domin/source/repos/Tetris/Tetris/Content/bin/Windows/Audio/music.wma</string></BuildOutput></PipelineBuildEvent>
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SourceFile>C:/Users/domin/source/repos/TexablePlum/Tetris/Content/Audio/music.ogg</SourceFile>
+  <SourceTime>2025-03-16T18:41:18.4407282+01:00</SourceTime>
+  <DestFile>C:/Users/domin/source/repos/TexablePlum/Tetris/Content/bin/Windows/Audio/music.xnb</DestFile>
+  <DestTime>2025-03-16T19:29:57.5806063+01:00</DestTime>
+  <Importer>OggImporter</Importer>
+  <ImporterTime>2022-07-26T13:44:56+02:00</ImporterTime>
+  <Processor>SongProcessor</Processor>
+  <ProcessorTime>2022-07-26T13:44:56+02:00</ProcessorTime>
+  <Parameters>
+    <Key>Quality</Key>
+    <Value>Best</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput>
+    <string>C:/Users/domin/source/repos/TexablePlum/Tetris/Content/bin/Windows/Audio/music.wma</string>
+  </BuildOutput>
+</PipelineBuildEvent>

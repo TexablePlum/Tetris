@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\domin\\source\\repos\\Tetris\\Tetris\\Tetris.csproj": {}
+    "C:\\Users\\domin\\source\\repos\\TexablePlum\\Tetris\\Tetris\\Tetris.csproj": {}
   },
   "projects": {
-    "C:\\Users\\domin\\source\\repos\\Tetris\\Tetris\\Tetris.csproj": {
+    "C:\\Users\\domin\\source\\repos\\TexablePlum\\Tetris\\Tetris\\Tetris.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\domin\\source\\repos\\Tetris\\Tetris\\Tetris.csproj",
+        "projectUniqueName": "C:\\Users\\domin\\source\\repos\\TexablePlum\\Tetris\\Tetris\\Tetris.csproj",
         "projectName": "Tetris",
-        "projectPath": "C:\\Users\\domin\\source\\repos\\Tetris\\Tetris\\Tetris.csproj",
+        "projectPath": "C:\\Users\\domin\\source\\repos\\TexablePlum\\Tetris\\Tetris\\Tetris.csproj",
         "packagesPath": "C:\\Users\\domin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\domin\\source\\repos\\Tetris\\Tetris\\obj\\",
+        "outputPath": "C:\\Users\\domin\\source\\repos\\TexablePlum\\Tetris\\Tetris\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -39,7 +39,13 @@
           "warnAsError": [
             "NU1605"
           ]
-        }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net6.0-windows7.0": {
@@ -65,24 +71,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.25, 6.0.25]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[6.0.25, 6.0.25]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[6.0.25, 6.0.25]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[6.0.25, 6.0.25]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
@@ -91,7 +79,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
